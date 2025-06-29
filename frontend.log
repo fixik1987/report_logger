@@ -35,3 +35,3073 @@ Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
 2:59:00 AM [vite] hmr update /src/components/MessageList.tsx, /src/index.css
 2:59:15 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
 2:59:16 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+3:10:48 AM [vite] page reload index.html
+3:10:48 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
+3:10:48 AM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+3:10:48 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+3:10:48 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+3:10:48 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:10:49 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:10:49 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:10:49 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:3:1]
+ [2m1[0m | import { Message } from '@/types/Message';
+ [2m2[0m | 
+ [2m3[0m | <<<<<<< HEAD
+   : [35;1m^^^^^^^[0m
+ [2m4[0m | const API_BASE_URL = 'http://192.168.68.113:3001';
+ [2m5[0m | =======
+ [2m6[0m | const API_BASE_URL = 'http://192.168.1.110:3001';
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:5:1]
+ [2m2[0m | 
+ [2m3[0m | <<<<<<< HEAD
+ [2m4[0m | const API_BASE_URL = 'http://192.168.68.113:3001';
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | const API_BASE_URL = 'http://192.168.1.110:3001';
+ [2m7[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:7:1]
+ [2m 4[0m | const API_BASE_URL = 'http://192.168.68.113:3001';
+ [2m 5[0m | =======
+ [2m 6[0m | const API_BASE_URL = 'http://192.168.1.110:3001';
+ [2m 7[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^^^^^^^[0m
+ [2m 8[0m | 
+ [2m 9[0m | export const api = {
+ [2m10[0m |   // Get all categories
+    `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:193:1]
+ [2m190[0m |     return true;
+ [2m191[0m |   },
+ [2m192[0m | 
+ [2m193[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m194[0m |   // Get all categories
+ [2m195[0m |   async getCategories(): Promise<{id: number, name: string}[]> {
+ [2m196[0m |     const response = await fetch(`${API_BASE_URL}/categories`);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:287:1]
+ [2m284[0m |     }
+ [2m285[0m |     
+ [2m286[0m |     return await response.json();
+ [2m287[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m288[0m |   // Get solutions by category ID
+ [2m289[0m |   async getSolutionsByCategory(categoryId: number): Promise<string[]> {
+ [2m290[0m |     const response = await fetch(`${API_BASE_URL}/solutions/${categoryId}`);
+     `----
+  [31mx[0m Expected '=>', got '('
+     ,-[[36;1;4m/var/www/html/report_logger/src/utils/api.ts[0m:289:1]
+ [2m286[0m |     return await response.json();
+ [2m287[0m | =======
+ [2m288[0m |   // Get solutions by category ID
+ [2m289[0m |   async getSolutionsByCategory(categoryId: number): Promise<string[]> {
+     : [35;1m                              ^[0m
+ [2m290[0m |     const response = await fetch(`${API_BASE_URL}/solutions/${categoryId}`);
+ [2m291[0m |     if (!response.ok) {
+ [2m292[0m |       throw new Error('Failed to fetch solutions by category');
+     `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/AddReportForm.tsx: SyntaxError: Unexpected token (116:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 116, column: 1, index: 4712 },
+  pos: 4712,
+  syntaxPlugin: undefined
+}
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:116:1]
+ [2m113[0m |       try {
+ [2m114[0m |         const cats = await api.getCategories();
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:118:1]
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:120:1]
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:124:1]
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+ [2m124[0m |       } catch (error) {
+     : [35;1m        ^^^^^[0m
+ [2m125[0m |         toast({
+ [2m126[0m |           title: "Error",
+ [2m127[0m |           description: "Failed to load categories",
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:134:1]
+ [2m131[0m |       } finally {
+ [2m132[0m |         setIsLoadingCategories(false);
+ [2m133[0m |       }
+ [2m134[0m |     };
+     : [35;1m     ^[0m
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     `----
+  [31mx[0m 'const' declarations must be initialized
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m                                               ^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:210:1]
+ [2m207[0m |     if (!newSolutionName.trim() || !categoryDropdown) return;
+ [2m208[0m |     
+ [2m209[0m |     const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
+ [2m210[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m211[0m |     if (!selectedCategory) return;
+ [2m212[0m |     
+ [2m213[0m |     setIsAddingSolution(true);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:216:1]
+ [2m213[0m |     setIsAddingSolution(true);
+ [2m214[0m |     try {
+ [2m215[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m216[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m217[0m |     if (!selectedCategory) {
+ [2m218[0m |       toast({
+ [2m219[0m |         title: "Error",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:237:1]
+ [2m234[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m235[0m |       console.log('Solution added successfully:', newSolution);
+ [2m236[0m |       
+ [2m237[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m238[0m |       setSolutions([...solutions, newSolution.desc]);
+ [2m239[0m |       setNewSolutionName('');
+ [2m240[0m |       setValue('solution', '');
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:246:1]
+ [2m243[0m |         description: "Solution added successfully",
+ [2m244[0m |       });
+ [2m245[0m |     } catch (error) {
+ [2m246[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m247[0m |       toast({
+ [2m248[0m |         title: "Error",
+ [2m249[0m |         description: "Failed to add solution",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:253:1]
+ [2m250[0m |         variant: "destructive",
+ [2m251[0m |       });
+ [2m252[0m |       console.error('Failed to add solution:', error);
+ [2m253[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m254[0m |       console.error('Error adding solution:', error);
+ [2m255[0m |       
+ [2m256[0m |       let errorMessage = "Failed to add solution";
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:268:1]
+ [2m265[0m |         description: errorMessage,
+ [2m266[0m |         variant: "destructive",
+ [2m267[0m |       });
+ [2m268[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:272:1]
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+ [2m272[0m |   };
+     : [35;1m   ^[0m
+ [2m273[0m | 
+ [2m274[0m |   const handleEditSolutionClick = () => {
+ [2m275[0m |     const selectedSolution = solutions.find(sol => sol === solutionDropdown);
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:354:1]
+ [2m351[0m |   };
+ [2m352[0m | 
+ [2m353[0m |   return (
+ [2m354[0m |     <>
+     : [35;1m     ^[0m
+ [2m355[0m |       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+ [2m356[0m |         <div className="space-y-2">
+ [2m357[0m |           <Label htmlFor="category" className="flex items-center gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m    ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m          ^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m           ^^^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/AddReportForm.tsx
+  
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:116:1]
+ [2m113[0m |       try {
+ [2m114[0m |         const cats = await api.getCategories();
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:118:1]
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:120:1]
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:124:1]
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+ [2m124[0m |       } catch (error) {
+     : [35;1m        ^^^^^[0m
+ [2m125[0m |         toast({
+ [2m126[0m |           title: "Error",
+ [2m127[0m |           description: "Failed to load categories",
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:134:1]
+ [2m131[0m |       } finally {
+ [2m132[0m |         setIsLoadingCategories(false);
+ [2m133[0m |       }
+ [2m134[0m |     };
+     : [35;1m     ^[0m
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     `----
+  [31mx[0m 'const' declarations must be initialized
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m                                               ^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:210:1]
+ [2m207[0m |     if (!newSolutionName.trim() || !categoryDropdown) return;
+ [2m208[0m |     
+ [2m209[0m |     const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
+ [2m210[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m211[0m |     if (!selectedCategory) return;
+ [2m212[0m |     
+ [2m213[0m |     setIsAddingSolution(true);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:216:1]
+ [2m213[0m |     setIsAddingSolution(true);
+ [2m214[0m |     try {
+ [2m215[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m216[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m217[0m |     if (!selectedCategory) {
+ [2m218[0m |       toast({
+ [2m219[0m |         title: "Error",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:237:1]
+ [2m234[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m235[0m |       console.log('Solution added successfully:', newSolution);
+ [2m236[0m |       
+ [2m237[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m238[0m |       setSolutions([...solutions, newSolution.desc]);
+ [2m239[0m |       setNewSolutionName('');
+ [2m240[0m |       setValue('solution', '');
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:246:1]
+ [2m243[0m |         description: "Solution added successfully",
+ [2m244[0m |       });
+ [2m245[0m |     } catch (error) {
+ [2m246[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m247[0m |       toast({
+ [2m248[0m |         title: "Error",
+ [2m249[0m |         description: "Failed to add solution",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:253:1]
+ [2m250[0m |         variant: "destructive",
+ [2m251[0m |       });
+ [2m252[0m |       console.error('Failed to add solution:', error);
+ [2m253[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m254[0m |       console.error('Error adding solution:', error);
+ [2m255[0m |       
+ [2m256[0m |       let errorMessage = "Failed to add solution";
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:268:1]
+ [2m265[0m |         description: errorMessage,
+ [2m266[0m |         variant: "destructive",
+ [2m267[0m |       });
+ [2m268[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:272:1]
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+ [2m272[0m |   };
+     : [35;1m   ^[0m
+ [2m273[0m | 
+ [2m274[0m |   const handleEditSolutionClick = () => {
+ [2m275[0m |     const selectedSolution = solutions.find(sol => sol === solutionDropdown);
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:354:1]
+ [2m351[0m |   };
+ [2m352[0m | 
+ [2m353[0m |   return (
+ [2m354[0m |     <>
+     : [35;1m     ^[0m
+ [2m355[0m |       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+ [2m356[0m |         <div className="space-y-2">
+ [2m357[0m |           <Label htmlFor="category" className="flex items-center gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m    ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m          ^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m           ^^^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/AddReportForm.tsx
+  
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:10:49 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:10:49 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:10:49 AM [vite] Pre-transform error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/AddReportForm.tsx: SyntaxError: Unexpected token (116:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 116, column: 1, index: 4712 },
+  pos: 4712,
+  syntaxPlugin: undefined
+}
+3:10:49 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:116:1]
+ [2m113[0m |       try {
+ [2m114[0m |         const cats = await api.getCategories();
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:118:1]
+ [2m115[0m |         setCategories(cats);
+ [2m116[0m | <<<<<<< HEAD
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:120:1]
+ [2m117[0m |         if (cats.length > 0) {
+ [2m118[0m | =======
+ [2m119[0m |         if (cats.length > 0 && !categoryDropdown) {
+ [2m120[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:124:1]
+ [2m121[0m |           setCategoryDropdown(cats[0].name);
+ [2m122[0m |           setValue('categoryDropdown', cats[0].name);
+ [2m123[0m |         }
+ [2m124[0m |       } catch (error) {
+     : [35;1m        ^^^^^[0m
+ [2m125[0m |         toast({
+ [2m126[0m |           title: "Error",
+ [2m127[0m |           description: "Failed to load categories",
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:134:1]
+ [2m131[0m |       } finally {
+ [2m132[0m |         setIsLoadingCategories(false);
+ [2m133[0m |       }
+ [2m134[0m |     };
+     : [35;1m     ^[0m
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     `----
+  [31mx[0m 'const' declarations must be initialized
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:137:1]
+ [2m134[0m |     };
+ [2m135[0m | 
+ [2m136[0m |     loadCategories();
+ [2m137[0m |   }, [setValue, toast, loadSolutionsByCategory]);
+     : [35;1m                                               ^[0m
+ [2m138[0m | 
+ [2m139[0m |   const handleAddCategory = async () => {
+ [2m140[0m |     if (!newCategoryName.trim()) return;
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:210:1]
+ [2m207[0m |     if (!newSolutionName.trim() || !categoryDropdown) return;
+ [2m208[0m |     
+ [2m209[0m |     const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
+ [2m210[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m211[0m |     if (!selectedCategory) return;
+ [2m212[0m |     
+ [2m213[0m |     setIsAddingSolution(true);
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:216:1]
+ [2m213[0m |     setIsAddingSolution(true);
+ [2m214[0m |     try {
+ [2m215[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m216[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m217[0m |     if (!selectedCategory) {
+ [2m218[0m |       toast({
+ [2m219[0m |         title: "Error",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:237:1]
+ [2m234[0m |       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+ [2m235[0m |       console.log('Solution added successfully:', newSolution);
+ [2m236[0m |       
+ [2m237[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m238[0m |       setSolutions([...solutions, newSolution.desc]);
+ [2m239[0m |       setNewSolutionName('');
+ [2m240[0m |       setValue('solution', '');
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:246:1]
+ [2m243[0m |         description: "Solution added successfully",
+ [2m244[0m |       });
+ [2m245[0m |     } catch (error) {
+ [2m246[0m | <<<<<<< HEAD
+     : [35;1m^^^^^^^[0m
+ [2m247[0m |       toast({
+ [2m248[0m |         title: "Error",
+ [2m249[0m |         description: "Failed to add solution",
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:253:1]
+ [2m250[0m |         variant: "destructive",
+ [2m251[0m |       });
+ [2m252[0m |       console.error('Failed to add solution:', error);
+ [2m253[0m | =======
+     : [35;1m^^^^^^^[0m
+ [2m254[0m |       console.error('Error adding solution:', error);
+ [2m255[0m |       
+ [2m256[0m |       let errorMessage = "Failed to add solution";
+     `----
+  [31mx[0m Merge conflict marker encountered.
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:268:1]
+ [2m265[0m |         description: errorMessage,
+ [2m266[0m |         variant: "destructive",
+ [2m267[0m |       });
+ [2m268[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     : [35;1m^^^^^^^[0m
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+     `----
+  [31mx[0m Expected a semicolon
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:272:1]
+ [2m269[0m |     } finally {
+ [2m270[0m |       setIsAddingSolution(false);
+ [2m271[0m |     }
+ [2m272[0m |   };
+     : [35;1m   ^[0m
+ [2m273[0m | 
+ [2m274[0m |   const handleEditSolutionClick = () => {
+ [2m275[0m |     const selectedSolution = solutions.find(sol => sol === solutionDropdown);
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:354:1]
+ [2m351[0m |   };
+ [2m352[0m | 
+ [2m353[0m |   return (
+ [2m354[0m |     <>
+     : [35;1m     ^[0m
+ [2m355[0m |       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+ [2m356[0m |         <div className="space-y-2">
+ [2m357[0m |           <Label htmlFor="category" className="flex items-center gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:361:1]
+ [2m358[0m |             Category
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+     : [35;1m    ^^[0m
+ [2m362[0m |           <div className="space-y-3">
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m          ^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/var/www/html/report_logger/src/components/AddReportForm.tsx[0m:362:1]
+ [2m359[0m |             <span className="text-xs text-gray-500">(select to filter solutions)</span>
+ [2m360[0m |           </Label>
+ [2m361[0m | <<<<<<< HEAD
+ [2m362[0m |           <div className="space-y-3">
+     : [35;1m           ^^^[0m
+ [2m363[0m | =======
+ [2m364[0m |           <div className="flex gap-2">
+ [2m365[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+     `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/AddReportForm.tsx
+  
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:10:49 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:10:49 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:10:50 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:10:50 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:10:50 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:10:50 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:10:50 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:10:50 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+3:11:44 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:11:44 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:11:45 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:12:28 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:12:28 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:12:28 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/LoginForm.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1114 },
+  pos: 1114,
+  syntaxPlugin: undefined
+}
+3:13:40 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:13:40 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:13:40 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:38:1]
+ [2m35[0m |   };
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+    `----
+  [31mx[0m Expression expected
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:39:1]
+ [2m36[0m | 
+ [2m37[0m |   return (
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    : [35;1m                                                                                                                   ^[0m
+ [2m40[0m |       <Card className="w-full max-w-md mx-auto">
+ [2m41[0m |         <CardHeader className="text-center pb-4">
+ [2m42[0m | =======
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m  ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m   ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m    ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m     ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:46:1]
+ [2m43[0m |     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+ [2m44[0m |       <Card className="w-full max-w-md">
+ [2m45[0m |         <CardHeader className="text-center">
+ [2m46[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+    : [35;1m      ^[0m
+ [2m47[0m |           <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
+ [2m48[0m |           <CardDescription>
+ [2m49[0m |             Sign in to manage your reports
+    `----
+  [31mx[0m Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:1]
+ [2m87[0m |       </Card>
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    : [35;1m^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/LoginForm.tsx[0m:90:4]
+ [2m88[0m |     </div>
+ [2m89[0m |   );
+ [2m90[0m | };
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/LoginForm.tsx
+  
+3:14:00 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:14:00 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+3:14:00 AM [vite] Pre-transform error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:14:00 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:14:00 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:14:00 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+3:14:01 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:14:01 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+3:14:01 AM [vite] Pre-transform error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:14:01 AM [vite] Pre-transform error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+Error processing file src/contexts/AuthContext.tsx: SyntaxError: Unexpected token (38:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6796:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6806:19) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 38, column: 1, index: 1013 },
+  pos: 1013,
+  syntaxPlugin: undefined
+}
+3:14:01 AM [vite] Internal server error:   [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:38:1]
+ [2m35[0m | 
+ [2m36[0m |   const login = async (username: string, password: string): Promise<boolean> => {
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+    : [35;1m^^^^^^^[0m
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:40:1]
+ [2m37[0m |     try {
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+    : [35;1m^^^^^^^[0m
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+    `----
+  [31mx[0m Unexpected token `response`. Expected ... , *,  (, [, :, , ?, =, an identifier, public, protected, private, readonly, <.
+    ,-[[36;1;4m/var/www/html/report_logger/src/contexts/AuthContext.tsx[0m:41:1]
+ [2m38[0m | <<<<<<< HEAD
+ [2m39[0m |       const response = await fetch('http://192.168.68.113:3001/login', {
+ [2m40[0m | =======
+ [2m41[0m |       const response = await fetch('http://192.168.1.110:3001/login', {
+    : [35;1m            ^^^^^^^^[0m
+ [2m42[0m | >>>>>>> 43c197e168dbee0931a89fc6df5871b60dffd76f
+ [2m43[0m |         method: 'POST',
+ [2m44[0m |         headers: {
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/contexts/AuthContext.tsx
+  
+Error processing file src/components/Dashboard.tsx: SyntaxError: Unexpected token (63:1)
+    at constructor (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:362:19)
+    at TypeScriptParserMixin.raise (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3259:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:3279:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6616:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6623:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6632:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6708:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6733:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/report_logger/node_modules/@babel/parser/lib/index.js:6745:32) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 63, column: 1, index: 1987 },
+  pos: 1987,
+  syntaxPlugin: undefined
+}
+3:14:01 AM [vite] Internal server error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+    ,-[[36;1;4m/var/www/html/report_logger/src/components/Dashboard.tsx[0m:58:1]
+ [2m55[0m |   };
+ [2m56[0m | 
+ [2m57[0m |   return (
+ [2m58[0m |     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    : [35;1m     ^^^[0m
+ [2m59[0m |       <div className="container mx-auto p-4 sm:p-6">
+ [2m60[0m |         {/* Header */}
+ [2m61[0m |         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+    `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /var/www/html/report_logger/src/components/Dashboard.tsx
+  
+3:14:32 AM [vite] page reload index.html
+3:14:32 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+3:14:32 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+3:14:32 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+3:14:32 AM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+3:14:32 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
