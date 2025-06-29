@@ -428,6 +428,122 @@ app.delete('/issues/:id', (req, res) => {
   });
 });
 
+// GET all reports
+app.get('/reports', (req, res) => {
+  db.query(
+    `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
+            c.name as category_name, i.description as issue_description, s.desc as solution_description
+     FROM reports r
+     JOIN categories c ON r.category_id = c.id
+     JOIN issue i ON r.issue_id = i.id
+     JOIN solutions s ON r.solution_id = s.id
+     ORDER BY r.datetime DESC`,
+    (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      res.json(results);
+    }
+  );
+});
+
+// POST create new report
+app.post('/reports', (req, res) => {
+  const { category_id, issue_id, solution_id, notes } = req.body;
+  if (!category_id || !issue_id || !solution_id) {
+    return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
+  }
+  
+  const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  db.query(
+    'INSERT INTO reports (category_id, issue_id, solution_id, datetime, notes) VALUES (?, ?, ?, ?, ?)',
+    [category_id, issue_id, solution_id, now, notes || null],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Return the created report
+      db.query(
+        `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
+                c.name as category_name, i.description as issue_description, s.desc as solution_description
+         FROM reports r
+         JOIN categories c ON r.category_id = c.id
+         JOIN issue i ON r.issue_id = i.id
+         JOIN solutions s ON r.solution_id = s.id
+         WHERE r.id = ?`,
+        [result.insertId],
+        (err, results) => {
+          if (err || results.length === 0) {
+            return res.status(500).json({ error: 'Failed to retrieve created report' });
+          }
+          res.status(201).json(results[0]);
+        }
+      );
+    }
+  );
+});
+
+// PUT update report
+app.put('/reports/:id', (req, res) => {
+  const { id } = req.params;
+  const { category_id, issue_id, solution_id, notes } = req.body;
+  
+  if (!category_id || !issue_id || !solution_id) {
+    return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
+  }
+  
+  db.query(
+    'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ? WHERE id = ?',
+    [category_id, issue_id, solution_id, notes || null, id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Report not found' });
+      }
+      
+      // Return the updated report
+      db.query(
+        `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
+                c.name as category_name, i.description as issue_description, s.desc as solution_description
+         FROM reports r
+         JOIN categories c ON r.category_id = c.id
+         JOIN issue i ON r.issue_id = i.id
+         JOIN solutions s ON r.solution_id = s.id
+         WHERE r.id = ?`,
+        [id],
+        (err, results) => {
+          if (err || results.length === 0) {
+            return res.status(500).json({ error: 'Failed to retrieve updated report' });
+          }
+          res.json(results[0]);
+        }
+      );
+    }
+  );
+});
+
+// DELETE report
+app.delete('/reports/:id', (req, res) => {
+  const { id } = req.params;
+  
+  db.query('DELETE FROM reports WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+    
+    res.status(204).send();
+  });
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -246,4 +246,60 @@ export const api = {
     
     return true;
   },
+
+  // Get all reports
+  async getReports(): Promise<any[]> {
+    const response = await fetch(`${API_BASE_URL}/reports`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch reports');
+    }
+    return await response.json();
+  },
+
+  // Create a new report
+  async createReport(report: { category_id: number, issue_id: number, solution_id: number, notes?: string }): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/reports`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(report),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to create report');
+    }
+    
+    return await response.json();
+  },
+
+  // Update a report
+  async updateReport(id: number, updates: { category_id: number, issue_id: number, solution_id: number, notes?: string }): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/reports/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update report');
+    }
+    
+    return await response.json();
+  },
+
+  // Delete a report
+  async deleteReport(id: number): Promise<boolean> {
+    const response = await fetch(`${API_BASE_URL}/reports/${id}`, {
+      method: 'DELETE',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete report');
+    }
+    
+    return true;
+  },
 };

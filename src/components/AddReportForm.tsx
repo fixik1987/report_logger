@@ -12,14 +12,14 @@ import { api } from '@/utils/api';
 import { useToast } from '@/hooks/use-toast';
 
 const messageSchema = z.object({
-  category: z.string().min(1, 'Category is required').max(100, 'Category must be less than 100 characters'),
+  category: z.string().optional(),
   categoryDropdown: z.string().min(1, 'Select a category'),
-  solution: z.string().min(1, 'Solution is required').max(100, 'Solution must be less than 100 characters'),
+  solution: z.string().optional(),
   solutionDropdown: z.string().min(1, 'Select a solution'),
-  solutionCategoryDropdown: z.string().min(1, 'Select a solution category'),
-  issue: z.string().min(1, 'Issue is required').max(100, 'Issue must be less than 100 characters'),
+  solutionCategoryDropdown: z.string().optional(),
+  issue: z.string().optional(),
   issueDropdown: z.string().min(1, 'Select an issue'),
-  content: z.string().min(1, 'Content is required').max(1000, 'Content must be less than 1000 characters'),
+  content: z.string().min(1, 'Notes is required').max(1000, 'Notes must be less than 1000 characters'),
 });
 
 type AddReportFormData = z.infer<typeof messageSchema>;
@@ -396,21 +396,57 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
 
   const onSubmit = async (data: AddReportFormData) => {
     try {
+      // Get the selected category ID
+      const selectedCategory = categories.find(cat => cat.name === data.categoryDropdown);
+      if (!selectedCategory) {
+        toast({
+          title: "Error",
+          description: "Please select a category",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Get the selected solution ID
+      const selectedSolution = solutionsWithCategories.find(sol => sol.desc === data.solutionDropdown);
+      if (!selectedSolution) {
+        toast({
+          title: "Error",
+          description: "Please select a solution",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Get the selected issue ID
+      const selectedIssue = issuesWithCategories.find(iss => iss.description === data.issueDropdown);
+      if (!selectedIssue) {
+        toast({
+          title: "Error",
+          description: "Please select an issue",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const submitData = {
-        title: data.category, // still using 'title' for backend compatibility
-        content: data.content,
+        category_id: selectedCategory.id,
+        solution_id: selectedSolution.id,
+        issue_id: selectedIssue.id,
+        notes: data.content,
       };
+
       if (isEditing && message) {
-        await api.updateMessage(message.id, submitData);
+        await api.updateReport(parseInt(message.id), submitData);
         toast({
           title: "Success",
-          description: "Message updated successfully",
+          description: "Report updated successfully",
         });
       } else {
-        await api.createMessage(submitData);
+        await api.createReport(submitData);
         toast({
           title: "Success",
-          description: "Message created successfully",
+          description: "Report created successfully",
         });
       }
       onSuccess();
@@ -418,7 +454,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     } catch (error) {
       toast({
         title: "Error",
-        description: isEditing ? "Failed to update message" : "Failed to create message",
+        description: isEditing ? "Failed to update report" : "Failed to create report",
         variant: "destructive",
       });
       console.error('Form submission error:', error);
@@ -436,7 +472,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
           <div className="space-y-3">
             <select
               id="categoryDropdown"
-              {...register('categoryDropdown')}
               value={categoryDropdown}
               onChange={e => {
                 const selectedValue = e.target.value;
@@ -475,7 +510,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 id="category"
                 {...register('category')}
                 placeholder="add new category"
-                className={`flex-1 h-12 text-base ${errors.category ? 'border-red-500' : ''}`}
+                className="flex-1 h-12 text-base"
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
               />
@@ -500,9 +535,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               </Button>
             </div>
           </div>
-          {(errors.categoryDropdown || errors.category) && (
+          {errors.categoryDropdown && (
             <p className="text-sm text-red-500">
-              {errors.categoryDropdown?.message || errors.category?.message}
+              {errors.categoryDropdown.message}
             </p>
           )}
         </div>
@@ -513,7 +548,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             <div className="flex gap-2">
               <select
                 id="solutionDropdown"
-                {...register('solutionDropdown')}
                 value={solutionDropdown}
                 onChange={e => {
                   setSolutionDropdown(e.target.value);
@@ -561,7 +595,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 id="solution"
                 {...register('solution')}
                 placeholder="add new solution"
-                className={`flex-1 h-12 text-base ${errors.solution ? 'border-red-500' : ''}`}
+                className="flex-1 h-12 text-base"
                 value={newSolutionName}
                 onChange={(e) => setNewSolutionName(e.target.value)}
               />
@@ -586,9 +620,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               </Button>
             </div>
           </div>
-          {(errors.solutionDropdown || errors.solution) && (
+          {errors.solutionDropdown && (
             <p className="text-sm text-red-500">
-              {errors.solutionDropdown?.message || errors.solution?.message}
+              {errors.solutionDropdown.message}
             </p>
           )}
         </div>
@@ -599,7 +633,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             <div className="flex gap-2">
               <select
                 id="issueDropdown"
-                {...register('issueDropdown')}
                 value={issueDropdown}
                 onChange={e => {
                   setIssueDropdown(e.target.value);
@@ -643,7 +676,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 id="issue"
                 {...register('issue')}
                 placeholder="add new issue"
-                className={`flex-1 h-12 text-base ${errors.issue ? 'border-red-500' : ''}`}
+                className="flex-1 h-12 text-base"
                 value={newIssueName}
                 onChange={(e) => setNewIssueName(e.target.value)}
               />
@@ -668,19 +701,19 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               </Button>
             </div>
           </div>
-          {(errors.issueDropdown || errors.issue) && (
+          {errors.issueDropdown && (
             <p className="text-sm text-red-500">
-              {errors.issueDropdown?.message || errors.issue?.message}
+              {errors.issueDropdown.message}
             </p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="content">Content</Label>
+          <Label htmlFor="content">Notes</Label>
           <Textarea
             id="content"
             {...register('content')}
-            placeholder="Enter message content"
+            placeholder="Enter notes content"
             rows={6}
             className={`${errors.content ? 'border-red-500' : ''} text-base`}
           />
@@ -695,7 +728,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             disabled={isSubmitting}
             className="h-12 sm:h-10 text-base font-medium"
           >
-            {isSubmitting ? 'Saving...' : isEditing ? 'Update Message' : 'Create Report'}
+            {isSubmitting ? 'Saving...' : isEditing ? 'Update Report' : 'Create Report'}
           </Button>
           <Button 
             type="button" 

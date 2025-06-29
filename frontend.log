@@ -1,26 +1,31 @@
 nohup: ignoring input
 
 > vite_react_shadcn_ts@0.0.0 dev
-> vite
+> vite --host 0.0.0.0 --port 8081
 
-(node:48322) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
-(Use `node --trace-warnings ...` to show where the warning was created)
-/var/www/html/report_logger/node_modules/.bin/vite:2
-import { performance } from 'node:perf_hooks'
-^^^^^^
 
-SyntaxError: Cannot use import statement outside a module
-    at internalCompileFunction (node:internal/vm:76:18)
-    at wrapSafe (node:internal/modules/cjs/loader:1283:20)
-    at Module._compile (node:internal/modules/cjs/loader:1328:27)
-    at Modul4:37:13 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:37:18 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:38:07 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:39:41 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:43:35 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:43:36 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:43:44 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:43:56 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:43:57 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:44:34 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
-4:44:36 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+  VITE v5.4.19  ready in 1417 ms
+
+  ➜  Local:   http://localhost:8081/
+  ➜  Network: http://192.168.68.113:8081/
+  ➜  Network: http://10.8.0.1:8081/
+6:06:06 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:06:06 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:06:07 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:26:33 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
+6:26:45 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:26:46 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:00 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:06 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:12 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:13 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:21 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:22 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:30 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:33:31 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:15 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:16 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:21 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:23 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:32 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+6:35:33 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
