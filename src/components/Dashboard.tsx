@@ -3,17 +3,33 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageList } from './MessageList';
+import { ReportsList } from './ReportsList';
 import { AddReportForm } from './AddReportForm';
 import { Message } from '@/types/Message';
 import { api } from '@/utils/api';
-import { LogOut, Plus, MessageSquare } from 'lucide-react';
+import { LogOut, Plus, MessageSquare, FileText, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+interface Report {
+  id: number;
+  category_id: number;
+  issue_id: number;
+  solution_id: number;
+  datetime: string;
+  notes: string;
+  category_name: string;
+  issue_description: string;
+  solution_description: string;
+}
 
 export const Dashboard = () => {
   const { user, logout } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
+  const [reports, setReports] = useState<Report[]>([]);
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'edit'>('list');
+  const [currentSection, setCurrentSection] = useState<'messages' | 'reports'>('reports');
   const [editingMessage, setEditingMessage] = useState<Message | null>(null);
+  const [editingReport, setEditingReport] = useState<Report | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -34,24 +50,95 @@ export const Dashboard = () => {
     }
   };
 
+  const loadReports = async () => {
+    try {
+      setIsLoading(true);
+      const data = await api.getReports();
+      setReports(data);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load reports from database",
+        variant: "destructive",
+      });
+      console.error('Failed to load reports:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
+    // Always load both reports and messages to keep tab counts accurate
+    loadReports();
     loadMessages();
   }, []);
 
+  useEffect(() => {
+    if (currentSection === 'messages') {
+      loadMessages();
+    } else {
+      loadReports();
+    }
+  }, [currentSection]);
+
+  // Refresh data when component mounts and when returning to list view
+  useEffect(() => {
+    if (currentView === 'list') {
+      // Always load both to keep counts accurate
+      loadReports();
+      loadMessages();
+    }
+  }, [currentView]);
+
+  // Refresh data when the page becomes visible (user returns to tab)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && currentView === 'list') {
+        // Always load both to keep counts accurate
+        loadReports();
+        loadMessages();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [currentView]);
+
   const handleCreateNew = () => {
     setEditingMessage(null);
+    setEditingReport(null);
     setCurrentView('create');
   };
 
-  const handleEdit = (message: Message) => {
+  const handleEditMessage = (message: Message) => {
     setEditingMessage(message);
+    setEditingReport(null);
+    setCurrentView('edit');
+  };
+
+  const handleEditReport = (report: Report) => {
+    setEditingReport(report);
+    setEditingMessage(null);
     setCurrentView('edit');
   };
 
   const handleFormSuccess = () => {
-    loadMessages();
+    if (currentSection === 'messages') {
+      loadMessages();
+    } else {
+      loadReports();
+    }
     setCurrentView('list');
     setEditingMessage(null);
+    setEditingReport(null);
+  };
+
+  const handleRefresh = () => {
+    // Always refresh both to keep counts accurate
+    loadReports();
+    loadMessages();
   };
 
   return (
@@ -81,7 +168,7 @@ export const Dashboard = () => {
               variant="ghost"
               className="flex items-center gap-2 h-12 sm:h-10"
             >
-              ← Back to Reports List
+              ← Back to List
             </Button>
           </div>
         )}
@@ -89,52 +176,145 @@ export const Dashboard = () => {
         {/* Main Content */}
         {currentView === 'list' && (
           <>
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-              <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
-                <MessageSquare className="h-5 w-5" />
-                Your Reports ({messages.length})
-              </h2>
-              <Button 
-                onClick={handleCreateNew} 
-                className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+            {/* Section Tabs */}
+            <div className="flex gap-2 mb-6">
+              <Button
+                variant={currentSection === 'reports' ? 'default' : 'outline'}
+                onClick={() => setCurrentSection('reports')}
+                className="flex items-center gap-2 h-12 sm:h-10"
               >
-                <Plus className="h-4 w-4" />
-                Create New Report
+                <FileText className="h-4 w-4" />
+                Reports ({reports.length})
+              </Button>
+              <Button
+                variant={currentSection === 'messages' ? 'default' : 'outline'}
+                onClick={() => setCurrentSection('messages')}
+                className="flex items-center gap-2 h-12 sm:h-10"
+              >
+                <MessageSquare className="h-4 w-4" />
+                Messages ({messages.length})
               </Button>
             </div>
-            <MessageList 
-              messages={messages} 
-              onEdit={handleEdit}
-              onRefresh={loadMessages}
-              isLoading={isLoading}
-            />
+
+            {/* Reports Section */}
+            {currentSection === 'reports' && (
+              <>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
+                      <FileText className="h-5 w-5" />
+                      Your Reports ({reports.length})
+                    </h2>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleRefresh}
+                      disabled={isLoading}
+                      className="h-8 w-8 p-0"
+                    >
+                      <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </div>
+                  <Button 
+                    onClick={handleCreateNew} 
+                    className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Create New Report
+                  </Button>
+                </div>
+                <ReportsList 
+                  reports={reports} 
+                  onEdit={handleEditReport}
+                  onRefresh={handleRefresh}
+                  isLoading={isLoading}
+                />
+              </>
+            )}
+
+            {/* Messages Section */}
+            {currentSection === 'messages' && (
+              <>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                  <div className="flex items-center gap-4">
+                    <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      Your Messages ({messages.length})
+                    </h2>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleRefresh}
+                      disabled={isLoading}
+                      className="h-8 w-8 p-0"
+                    >
+                      <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    </Button>
+                  </div>
+                  <Button 
+                    onClick={handleCreateNew} 
+                    className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Create New Message
+                  </Button>
+                </div>
+                <MessageList 
+                  messages={messages} 
+                  onEdit={handleEditMessage}
+                  onRefresh={handleRefresh}
+                  isLoading={isLoading}
+                />
+              </>
+            )}
           </>
         )}
 
         {currentView === 'create' && (
           <Card className="mx-auto max-w-4xl">
             <CardHeader>
-              <CardTitle>Create New Report</CardTitle>
-              <CardDescription>Add a new report to your collection</CardDescription>
+              <CardTitle>
+                {currentSection === 'reports' ? 'Create New Report' : 'Create New Message'}
+              </CardTitle>
+              <CardDescription>
+                {currentSection === 'reports' 
+                  ? 'Add a new report to your collection' 
+                  : 'Add a new message to your collection'
+                }
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <AddReportForm 
-                onSuccess={handleFormSuccess}
-                onCancel={() => setCurrentView('list')}
-              />
+              {currentSection === 'reports' ? (
+                <AddReportForm 
+                  onSuccess={handleFormSuccess}
+                  onCancel={() => setCurrentView('list')}
+                />
+              ) : (
+                <AddReportForm 
+                  onSuccess={handleFormSuccess}
+                  onCancel={() => setCurrentView('list')}
+                />
+              )}
             </CardContent>
           </Card>
         )}
 
-        {currentView === 'edit' && editingMessage && (
+        {currentView === 'edit' && (editingMessage || editingReport) && (
           <Card className="mx-auto max-w-4xl">
             <CardHeader>
-              <CardTitle>Edit Report</CardTitle>
-              <CardDescription>Update your report</CardDescription>
+              <CardTitle>
+                {currentSection === 'reports' ? 'Edit Report' : 'Edit Message'}
+              </CardTitle>
+              <CardDescription>
+                {currentSection === 'reports' 
+                  ? 'Update your report' 
+                  : 'Update your message'
+                }
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <AddReportForm 
-                message={editingMessage}
+                message={currentSection === 'reports' ? editingReport : editingMessage}
                 onSuccess={handleFormSuccess}
                 onCancel={() => setCurrentView('list')}
               />

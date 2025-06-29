@@ -25,7 +25,17 @@ const messageSchema = z.object({
 type AddReportFormData = z.infer<typeof messageSchema>;
 
 interface AddReportFormProps {
-  message?: Message;
+  message?: Message | {
+    id: number;
+    category_id: number;
+    issue_id: number;
+    solution_id: number;
+    datetime: string;
+    notes: string;
+    category_name: string;
+    issue_description: string;
+    solution_description: string;
+  };
   onSuccess: () => void;
   onCancel: () => void;
 }
@@ -105,6 +115,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       if (sols.length > 0) {
         setSolutionDropdown(sols[0]);
         setValue('solutionDropdown', sols[0]);
+        setTimeout(() => {
+          setValue('solutionDropdown', sols[0], { shouldValidate: true });
+        }, 100);
         console.log('Set first solution:', sols[0]);
       } else {
         setSolutionDropdown('');
@@ -139,6 +152,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       if (iss.length > 0) {
         setIssueDropdown(iss[0]);
         setValue('issueDropdown', iss[0]);
+        setTimeout(() => {
+          setValue('issueDropdown', iss[0], { shouldValidate: true });
+        }, 100);
       } else {
         setIssueDropdown('');
         setValue('issueDropdown', '');
@@ -160,16 +176,60 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
         const cats = await api.getCategories();
         setCategories(cats);
         
-        // Try to restore saved category selection from localStorage
-        const savedCategory = localStorage.getItem('selectedCategory');
-        if (savedCategory && cats.find(cat => cat.name === savedCategory)) {
-          setCategoryDropdown(savedCategory);
-          setValue('categoryDropdown', savedCategory);
-        } else if (cats.length > 0) {
-          // If no saved category or saved category doesn't exist, use first category
-          setCategoryDropdown(cats[0].name);
-          setValue('categoryDropdown', cats[0].name);
+        if (isEditing && message) {
+          // In edit mode, we need to load the existing report data
+          if ('category_name' in message) {
+            // This is a Report object
+            const report = message as any;
+            setCategoryDropdown(report.category_name);
+            setValue('categoryDropdown', report.category_name);
+            setValue('content', report.notes || '');
+            
+            // Load solutions and issues for this category
+            const selectedCategory = cats.find(cat => cat.name === report.category_name);
+            if (selectedCategory) {
+              loadSolutionsByCategory(selectedCategory.id);
+              loadIssuesByCategory(selectedCategory.id);
+              
+              // Set the existing solution and issue after they're loaded
+              setTimeout(() => {
+                setSolutionDropdown(report.solution_description);
+                setValue('solutionDropdown', report.solution_description);
+                setIssueDropdown(report.issue_description);
+                setValue('issueDropdown', report.issue_description);
+              }, 500);
+            }
+          } else {
+            // This is a Message object (legacy)
+            if (cats.length > 0) {
+              setCategoryDropdown(cats[0].name);
+              setValue('categoryDropdown', cats[0].name);
+              setTimeout(() => {
+                setValue('categoryDropdown', cats[0].name, { shouldValidate: true });
+              }, 100);
+            }
+          }
+        } else {
+          // Try to restore saved category selection from localStorage
+          const savedCategory = localStorage.getItem('selectedCategory');
+          if (savedCategory && cats.find(cat => cat.name === savedCategory)) {
+            setCategoryDropdown(savedCategory);
+            setValue('categoryDropdown', savedCategory);
+            // Trigger form validation after setting the value
+            setTimeout(() => {
+              setValue('categoryDropdown', savedCategory, { shouldValidate: true });
+            }, 100);
+          } else if (cats.length > 0) {
+            // If no saved category or saved category doesn't exist, use first category
+            setCategoryDropdown(cats[0].name);
+            setValue('categoryDropdown', cats[0].name);
+            // Trigger form validation after setting the value
+            setTimeout(() => {
+              setValue('categoryDropdown', cats[0].name, { shouldValidate: true });
+            }, 100);
+          }
         }
+        
       } catch (error) {
         toast({
           title: "Error",
@@ -183,7 +243,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     };
 
     loadCategories();
-  }, [setValue, toast, loadSolutionsByCategory]);
+  }, [setValue, toast, isEditing, message]);
 
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
@@ -258,10 +318,28 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
     if (!selectedCategory) return;
     
+    console.log('Adding solution:', { name: newSolutionName.trim(), categoryId: selectedCategory.id });
+    
     setIsAddingSolution(true);
     try {
       const newSolution = await api.createSolution(newSolutionName.trim(), selectedCategory.id);
+      console.log('Solution created successfully:', newSolution);
+      
       setSolutions([...solutions, newSolution.desc]);
+      setSolutionsWithCategories([...solutionsWithCategories, {
+        id: newSolution.id,
+        desc: newSolution.desc,
+        category_id: newSolution.category_id,
+        category_name: selectedCategory.name
+      }]);
+      
+      // Automatically select the newly created solution
+      setSolutionDropdown(newSolution.desc);
+      setValue('solutionDropdown', newSolution.desc);
+      setTimeout(() => {
+        setValue('solutionDropdown', newSolution.desc, { shouldValidate: true });
+      }, 100);
+      
       setNewSolutionName('');
       setValue('solution', '');
       toast({
@@ -269,6 +347,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
         description: "Solution added successfully",
       });
     } catch (error) {
+      console.error('Error creating solution:', error);
       toast({
         title: "Error",
         description: "Failed to add solution",
@@ -344,14 +423,33 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
     if (!selectedCategory) return;
     
+    console.log('Adding issue:', { name: newIssueName.trim(), categoryId: selectedCategory.id });
+    
     setIsAddingIssue(true);
     try {
       const newIssue = await api.createIssue(newIssueName.trim(), selectedCategory.id);
+      console.log('Issue created successfully:', newIssue);
+      
       setIssues([...issues, newIssue.description]);
+      setIssuesWithCategories([...issuesWithCategories, {
+        id: newIssue.id,
+        description: newIssue.description,
+        category_id: newIssue.category_id,
+        category_name: selectedCategory.name
+      }]);
+      
+      // Automatically select the newly created issue
+      setIssueDropdown(newIssue.description);
+      setValue('issueDropdown', newIssue.description);
+      setTimeout(() => {
+        setValue('issueDropdown', newIssue.description, { shouldValidate: true });
+      }, 100);
+      
       setNewIssueName('');
       setValue('issue', '');
       toast({ title: "Success", description: "Issue added successfully" });
     } catch (error) {
+      console.error('Error creating issue:', error);
       toast({ title: "Error", description: "Failed to add issue", variant: "destructive" });
     } finally {
       setIsAddingIssue(false);
@@ -395,6 +493,13 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
   };
 
   const onSubmit = async (data: AddReportFormData) => {
+    console.log('Form submission data:', data);
+    console.log('Current dropdown states:', {
+      categoryDropdown,
+      solutionDropdown,
+      issueDropdown
+    });
+    
     try {
       // Get the selected category ID
       const selectedCategory = categories.find(cat => cat.name === data.categoryDropdown);
@@ -437,7 +542,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       };
 
       if (isEditing && message) {
-        await api.updateReport(parseInt(message.id), submitData);
+        // Determine the ID based on the message type
+        const reportId = 'category_name' in message ? message.id : parseInt(message.id);
+        await api.updateReport(reportId, submitData);
         toast({
           title: "Success",
           description: "Report updated successfully",
