@@ -1,0 +1,37 @@
+nohup: ignoring input
+Port 8080 is in use, trying another one...
+
+  VITE v5.4.19  ready in 1114 ms
+
+  ➜  Local:   http://localhost:8081/
+  ➜  Network: http://192.168.68.113:8081/
+  ➜  Network: http://10.8.0.1:8081/
+Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+2:44:42 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
+2:44:42 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
+2:52:28 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx
+2:52:39 AM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:52:39 AM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react-swc#consistent-components-exports
+2:52:39 AM [vite] hmr update /src/pages/Index.tsx, /src/index.css, /src/components/LoginForm.tsx, /src/components/Dashboard.tsx
+2:52:40 AM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:52:40 AM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react-swc#consistent-components-exports
+2:52:40 AM [vite] hmr update /src/pages/Index.tsx, /src/index.css, /src/components/LoginForm.tsx, /src/components/Dashboard.tsx
+2:55:52 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+2:55:53 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+2:56:11 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+2:56:12 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+2:56:48 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:57:04 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+2:57:06 AM [vite] hmr update /src/components/LoginForm.tsx, /src/index.css
+2:57:56 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:58:14 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:58:15 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:58:34 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:58:36 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:58:41 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:59:00 AM [vite] hmr update /src/components/MessageList.tsx, /src/index.css
+2:59:00 AM [vite] hmr update /src/components/MessageList.tsx, /src/index.css
+2:59:15 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css
+2:59:16 AM [vite] hmr update /src/components/AddReportForm.tsx, /src/index.css

@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://192.168.68.113:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

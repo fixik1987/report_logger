@@ -35,15 +35,15 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Message Logger</CardTitle>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <Card className="w-full max-w-md mx-auto">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl font-bold">Report Logger</CardTitle>
           <CardDescription>
-            Sign in to manage your messages
+            Sign in to manage your reports
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-6 pb-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
@@ -54,6 +54,7 @@ export const LoginForm = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                className="h-12 text-base"
               />
             </div>
             <div className="space-y-2">
@@ -65,19 +66,17 @@ export const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="h-12 text-base"
               />
             </div>
             <Button 
               type="submit" 
-              className="w-full" 
+              className="w-full h-12 text-base font-medium" 
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <div className="mt-4 text-sm text-center text-muted-foreground">
-            Demo credentials: admin/password or pavel/12345
-          </div>
         </CardContent>
       </Card>
     </div>

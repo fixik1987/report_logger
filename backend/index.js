@@ -8,18 +8,32 @@ app.use(express.json());
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: '192.168.1.110',
+  host: '192.168.68.113',
   user: 'valik',
   password: 'Range970766',
-  database: 'report_logger'
+  database: 'report_logger',
+  connectTimeout: 10000, // 10 seconds timeout
+  acquireTimeout: 10000,
+  timeout: 10000
 });
 
 db.connect(err => {
   if (err) {
     console.error('MySQL connection error:', err);
-    process.exit(1);
+    console.log('Server will continue running but database operations will fail');
+    // Don't exit the process, let it continue running
+    return;
   }
   console.log('Connected to MySQL');
+});
+
+// Handle database disconnection
+db.on('error', (err) => {
+  console.error('Database error:', err);
+  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+    console.log('Database connection was lost. Attempting to reconnect...');
+    // You could implement reconnection logic here
+  }
 });
 
 // Endpoint to read users table
@@ -142,6 +156,167 @@ app.delete('/messages/:id', (req, res) => {
     
     res.status(204).send();
   });
+});
+
+// GET all categories
+app.get('/categories', (req, res) => {
+  db.query('SELECT id, name FROM categories ORDER BY name', (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Database error' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// POST create new category
+app.post('/categories', (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: 'Category name is required' });
+  }
+  
+  db.query(
+    'INSERT INTO categories (name) VALUES (?)',
+    [name],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Return the created category
+      db.query('SELECT id, name FROM categories WHERE id = ?', [result.insertId], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve created category' });
+        }
+        res.status(201).json(results[0]);
+      });
+    }
+  );
+});
+
+// PUT update category
+app.put('/categories/:id', (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  
+  if (!name) {
+    return res.status(400).json({ error: 'Category name is required' });
+  }
+  
+  db.query(
+    'UPDATE categories SET name = ? WHERE id = ?',
+    [name, id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Category not found' });
+      }
+      
+      // Return the updated category
+      db.query('SELECT id, name FROM categories WHERE id = ?', [id], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve updated category' });
+        }
+        res.json(results[0]);
+      });
+    }
+  );
+});
+
+// GET solutions by category
+app.get('/solutions/category/:categoryId', (req, res) => {
+  const { categoryId } = req.params;
+  
+  db.query(
+    'SELECT `desc` FROM solutions WHERE category_id = ? ORDER BY `desc`',
+    [categoryId],
+    (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      res.json(results.map(row => row.desc));
+    }
+  );
+});
+
+// GET all solutions with categories
+app.get('/solutions/with-categories', (req, res) => {
+  db.query(
+    `SELECT s.id, s.\`desc\`, s.category_id, c.name as category_name 
+     FROM solutions s 
+     JOIN categories c ON s.category_id = c.id 
+     ORDER BY c.name, s.\`desc\``,
+    (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      res.json(results);
+    }
+  );
+});
+
+// POST create new solution
+app.post('/solutions', (req, res) => {
+  const { desc, category_id } = req.body;
+  if (!desc || !category_id) {
+    return res.status(400).json({ error: 'Solution description and category_id are required' });
+  }
+  
+  db.query(
+    'INSERT INTO solutions (`desc`, category_id) VALUES (?, ?)',
+    [desc, category_id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Return the created solution
+      db.query('SELECT id, `desc`, category_id FROM solutions WHERE id = ?', [result.insertId], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve created solution' });
+        }
+        res.status(201).json(results[0]);
+      });
+    }
+  );
+});
+
+// PUT update solution
+app.put('/solutions/:id', (req, res) => {
+  const { id } = req.params;
+  const { desc, category_id } = req.body;
+  
+  if (!desc || !category_id) {
+    return res.status(400).json({ error: 'Solution description and category_id are required' });
+  }
+  
+  db.query(
+    'UPDATE solutions SET `desc` = ?, category_id = ? WHERE id = ?',
+    [desc, category_id, id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Solution not found' });
+      }
+      
+      // Return the updated solution
+      db.query('SELECT id, `desc`, category_id FROM solutions WHERE id = ?', [id], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve updated solution' });
+        }
+        res.json(results[0]);
+      });
+    }
+  );
 });
 
 const PORT = 3001;

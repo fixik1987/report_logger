@@ -89,16 +89,16 @@ export const MessageList: React.FC<MessageListProps> = ({
     <div className="space-y-4">
       {messages.map((message) => (
         <Card key={message.id} className="hover:shadow-md transition-shadow">
-          <CardHeader>
-            <div className="flex justify-between items-start">
+          <CardHeader className="pb-3">
+            <div className="flex flex-col gap-3">
               <div className="flex-1">
-                <CardTitle className="text-lg">{message.title}</CardTitle>
-                <CardDescription className="flex items-center gap-4 mt-2">
-                  <span className="flex items-center gap-1">
+                <CardTitle className="text-lg break-words">{message.title}</CardTitle>
+                <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
+                  <span className="flex items-center gap-1 text-sm">
                     <Calendar className="h-3 w-3" />
                     {formatDate(message.createdAt)}
                   </span>
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 text-sm">
                     <Clock className="h-3 w-3" />
                     {formatTime(message.createdAt)}
                   </span>
@@ -109,26 +109,28 @@ export const MessageList: React.FC<MessageListProps> = ({
                   variant="outline"
                   size="sm"
                   onClick={() => onEdit(message)}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 flex-1 sm:flex-none h-10 sm:h-8"
                 >
                   <Edit className="h-3 w-3" />
-                  Edit
+                  <span className="sm:hidden">Edit</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleDelete(message.id)}
                   disabled={deletingId === message.id}
-                  className="flex items-center gap-1 text-red-600 hover:text-red-700"
+                  className="flex items-center gap-1 text-red-600 hover:text-red-700 flex-1 sm:flex-none h-10 sm:h-8"
                 >
                   <Trash2 className="h-3 w-3" />
-                  {deletingId === message.id ? 'Deleting...' : 'Delete'}
+                  <span className="sm:hidden">
+                    {deletingId === message.id ? 'Deleting...' : 'Delete'}
+                  </span>
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <p className="text-gray-700 whitespace-pre-wrap">{message.content}</p>
+          <CardContent className="pt-0">
+            <p className="text-gray-700 whitespace-pre-wrap break-words">{message.content}</p>
           </CardContent>
         </Card>
       ))}

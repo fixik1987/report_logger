@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageList } from './MessageList';
-import { MessageForm } from './MessageForm';
+import { AddReportForm } from './AddReportForm';
 import { Message } from '@/types/Message';
 import { api } from '@/utils/api';
 import { LogOut, Plus, MessageSquare } from 'lucide-react';
@@ -56,14 +56,18 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-4 sm:p-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Message Logger</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Report Logger</h1>
             <p className="text-gray-600">Welcome back, {user?.username}!</p>
           </div>
-          <Button onClick={logout} variant="outline" className="flex items-center gap-2">
+          <Button 
+            onClick={logout} 
+            variant="outline" 
+            className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+          >
             <LogOut className="h-4 w-4" />
             Logout
           </Button>
@@ -75,9 +79,9 @@ export const Dashboard = () => {
             <Button 
               onClick={() => setCurrentView('list')} 
               variant="ghost"
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 h-12 sm:h-10"
             >
-              ← Back to Messages
+              ← Back to Reports List
             </Button>
           </div>
         )}
@@ -85,14 +89,17 @@ export const Dashboard = () => {
         {/* Main Content */}
         {currentView === 'list' && (
           <>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+              <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                 <MessageSquare className="h-5 w-5" />
-                Your Messages ({messages.length})
+                Your Reports ({messages.length})
               </h2>
-              <Button onClick={handleCreateNew} className="flex items-center gap-2">
+              <Button 
+                onClick={handleCreateNew} 
+                className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+              >
                 <Plus className="h-4 w-4" />
-                Create New Message
+                Create New Report
               </Button>
             </div>
             <MessageList 
@@ -105,13 +112,13 @@ export const Dashboard = () => {
         )}
 
         {currentView === 'create' && (
-          <Card>
+          <Card className="mx-auto max-w-4xl">
             <CardHeader>
-              <CardTitle>Create New Message</CardTitle>
-              <CardDescription>Add a new message to your collection</CardDescription>
+              <CardTitle>Create New Report</CardTitle>
+              <CardDescription>Add a new report to your collection</CardDescription>
             </CardHeader>
             <CardContent>
-              <MessageForm 
+              <AddReportForm 
                 onSuccess={handleFormSuccess}
                 onCancel={() => setCurrentView('list')}
               />
@@ -120,13 +127,13 @@ export const Dashboard = () => {
         )}
 
         {currentView === 'edit' && editingMessage && (
-          <Card>
+          <Card className="mx-auto max-w-4xl">
             <CardHeader>
-              <CardTitle>Edit Message</CardTitle>
-              <CardDescription>Update your message</CardDescription>
+              <CardTitle>Edit Report</CardTitle>
+              <CardDescription>Update your report</CardDescription>
             </CardHeader>
             <CardContent>
-              <MessageForm 
+              <AddReportForm 
                 message={editingMessage}
                 onSuccess={handleFormSuccess}
                 onCancel={() => setCurrentView('list')}

@@ -1,6 +1,6 @@
 import { Message } from '@/types/Message';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://192.168.68.113:3001';
 
 export const api = {
   // Get all messages
@@ -85,5 +85,100 @@ export const api = {
     }
     
     return true;
+  },
+
+  // Get all categories
+  async getCategories(): Promise<{id: number, name: string}[]> {
+    const response = await fetch(`${API_BASE_URL}/categories`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch categories');
+    }
+    return await response.json();
+  },
+
+  // Create a new category
+  async createCategory(name: string): Promise<{id: number, name: string}> {
+    const response = await fetch(`${API_BASE_URL}/categories`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to create category');
+    }
+    
+    return await response.json();
+  },
+
+  // Update a category
+  async updateCategory(id: number, name: string): Promise<{id: number, name: string}> {
+    const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update category');
+    }
+    
+    return await response.json();
+  },
+
+  // Get solutions by category
+  async getSolutionsByCategory(categoryId: number): Promise<string[]> {
+    const response = await fetch(`${API_BASE_URL}/solutions/category/${categoryId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch solutions by category');
+    }
+    return await response.json();
+  },
+
+  // Get all solutions with categories
+  async getSolutionsWithCategories(): Promise<{id: number, desc: string, category_id: number, category_name: string}[]> {
+    const response = await fetch(`${API_BASE_URL}/solutions/with-categories`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch solutions with categories');
+    }
+    return await response.json();
+  },
+
+  // Create a new solution
+  async createSolution(desc: string, category_id: number): Promise<{id: number, desc: string, category_id: number}> {
+    const response = await fetch(`${API_BASE_URL}/solutions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ desc, category_id }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to create solution');
+    }
+    
+    return await response.json();
+  },
+
+  // Update a solution
+  async updateSolution(id: number, desc: string, category_id: number): Promise<{id: number, desc: string, category_id: number}> {
+    const response = await fetch(`${API_BASE_URL}/solutions/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ desc, category_id }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update solution');
+    }
+    
+    return await response.json();
   },
 };
