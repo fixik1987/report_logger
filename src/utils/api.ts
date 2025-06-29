@@ -181,4 +181,69 @@ export const api = {
     
     return await response.json();
   },
+
+  // Get issues by category
+  async getIssuesByCategory(categoryId: number): Promise<string[]> {
+    const response = await fetch(`${API_BASE_URL}/issues/category/${categoryId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch issues by category');
+    }
+    return await response.json();
+  },
+
+  // Get all issues with categories
+  async getIssuesWithCategories(): Promise<{id: number, description: string, category_id: number, category_name: string}[]> {
+    const response = await fetch(`${API_BASE_URL}/issues/with-categories`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch issues with categories');
+    }
+    return await response.json();
+  },
+
+  // Create a new issue
+  async createIssue(description: string, category_id: number): Promise<{id: number, description: string, category_id: number}> {
+    const response = await fetch(`${API_BASE_URL}/issues`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description, category_id }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to create issue');
+    }
+    
+    return await response.json();
+  },
+
+  // Update an issue
+  async updateIssue(id: number, description: string, category_id: number): Promise<{id: number, description: string, category_id: number}> {
+    const response = await fetch(`${API_BASE_URL}/issues/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description, category_id }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update issue');
+    }
+    
+    return await response.json();
+  },
+
+  // Delete an issue
+  async deleteIssue(id: number): Promise<boolean> {
+    const response = await fetch(`${API_BASE_URL}/issues/${id}`, {
+      method: 'DELETE',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete issue');
+    }
+    
+    return true;
+  },
 };

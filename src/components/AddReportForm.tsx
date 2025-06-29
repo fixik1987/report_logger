@@ -17,6 +17,8 @@ const messageSchema = z.object({
   solution: z.string().min(1, 'Solution is required').max(100, 'Solution must be less than 100 characters'),
   solutionDropdown: z.string().min(1, 'Select a solution'),
   solutionCategoryDropdown: z.string().min(1, 'Select a solution category'),
+  issue: z.string().min(1, 'Issue is required').max(100, 'Issue must be less than 100 characters'),
+  issueDropdown: z.string().min(1, 'Select an issue'),
   content: z.string().min(1, 'Content is required').max(1000, 'Content must be less than 1000 characters'),
 });
 
@@ -52,6 +54,19 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
   const [editSolutionName, setEditSolutionName] = useState('');
   const [editSolutionCategoryId, setEditSolutionCategoryId] = useState<number>(0);
 
+  // Issue states
+  const [issueDropdown, setIssueDropdown] = useState('');
+  const [issues, setIssues] = useState<string[]>([]);
+  const [issuesWithCategories, setIssuesWithCategories] = useState<{id: number, description: string, category_id: number, category_name: string}[]>([]);
+  const [isLoadingIssues, setIsLoadingIssues] = useState(true);
+  const [newIssueName, setNewIssueName] = useState('');
+  const [isAddingIssue, setIsAddingIssue] = useState(false);
+  const [isEditingIssue, setIsEditingIssue] = useState(false);
+  const [showEditIssueModal, setShowEditIssueModal] = useState(false);
+  const [editIssueName, setEditIssueName] = useState('');
+  const [editIssueCategoryId, setEditIssueCategoryId] = useState<number>(0);
+  const [issuesLoadedForCategory, setIssuesLoadedForCategory] = useState<number | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -67,6 +82,8 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       solution: '',
       solutionDropdown: '',
       solutionCategoryDropdown: '',
+      issue: '',
+      issueDropdown: '',
       content: message?.content || '',
     },
   });
@@ -108,12 +125,55 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     }
   };
 
+  const loadIssuesByCategory = async (categoryId: number) => {
+    // Don't reload if issues are already loaded for this category
+    if (issuesLoadedForCategory === categoryId && issues.length > 0) {
+      return;
+    }
+    
+    try {
+      setIsLoadingIssues(true);
+      const [iss, issWithCats] = await Promise.all([
+        api.getIssuesByCategory(categoryId),
+        api.getIssuesWithCategories()
+      ]);
+      setIssues(iss);
+      setIssuesWithCategories(issWithCats);
+      setIssuesLoadedForCategory(categoryId);
+      
+      // Only set first issue if no issue is currently selected
+      if (iss.length > 0 && !issueDropdown) {
+        setIssueDropdown(iss[0]);
+        setValue('issueDropdown', iss[0]);
+      } else if (iss.length === 0) {
+        setIssueDropdown('');
+        setValue('issueDropdown', '');
+      }
+      // If issues exist and an issue is already selected, keep the current selection
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load issues for this category",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingIssues(false);
+    }
+  };
+
   useEffect(() => {
     const loadCategories = async () => {
       try {
         const cats = await api.getCategories();
         setCategories(cats);
-        if (cats.length > 0) {
+        
+        // Try to restore saved category selection from localStorage
+        const savedCategory = localStorage.getItem('selectedCategory');
+        if (savedCategory && cats.find(cat => cat.name === savedCategory)) {
+          setCategoryDropdown(savedCategory);
+          setValue('categoryDropdown', savedCategory);
+        } else if (cats.length > 0) {
+          // If no saved category or saved category doesn't exist, use first category
           setCategoryDropdown(cats[0].name);
           setValue('categoryDropdown', cats[0].name);
         }
@@ -131,6 +191,8 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
 
     loadCategories();
   }, [setValue, toast, loadSolutionsByCategory]);
+
+  // Removed automatic issue loading - issues will be loaded manually when needed
 
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
@@ -275,6 +337,72 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     setEditSolutionCategoryId(0);
   };
 
+  const handleAddIssue = async () => {
+    if (!newIssueName.trim()) return;
+    
+    // If no category is selected, show error
+    if (!categoryDropdown) {
+      toast({
+        title: "Error",
+        description: "Please select a category first to add an issue",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
+    if (!selectedCategory) return;
+    
+    setIsAddingIssue(true);
+    try {
+      const newIssue = await api.createIssue(newIssueName.trim(), selectedCategory.id);
+      setIssues([...issues, newIssue.description]);
+      setNewIssueName('');
+      setValue('issue', '');
+      toast({ title: "Success", description: "Issue added successfully" });
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to add issue", variant: "destructive" });
+    } finally {
+      setIsAddingIssue(false);
+    }
+  };
+
+  const handleEditIssueClick = () => {
+    const selectedIssue = issues.find(iss => iss === issueDropdown);
+    const selectedIssueWithCat = issuesWithCategories.find(iss => iss.description === issueDropdown);
+    if (selectedIssue && selectedIssueWithCat) {
+      setEditIssueName(selectedIssue);
+      setEditIssueCategoryId(selectedIssueWithCat.category_id);
+      setShowEditIssueModal(true);
+    }
+  };
+
+  const handleEditIssueAccept = async () => {
+    const selectedIssue = issues.find(iss => iss === issueDropdown);
+    if (!selectedIssue || !editIssueName.trim()) return;
+    setIsEditingIssue(true);
+    try {
+      const selectedIssueWithCat = issuesWithCategories.find(iss => iss.description === selectedIssue);
+      if (!selectedIssueWithCat) return;
+      const updatedIssue = await api.updateIssue(selectedIssueWithCat.id, editIssueName.trim(), editIssueCategoryId);
+      setIssues(issues.map(iss => iss === selectedIssue ? updatedIssue.description : iss));
+      setIssueDropdown(updatedIssue.description);
+      setValue('issueDropdown', updatedIssue.description);
+      setShowEditIssueModal(false);
+      toast({ title: "Success", description: "Issue updated successfully" });
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to update issue", variant: "destructive" });
+    } finally {
+      setIsEditingIssue(false);
+    }
+  };
+
+  const handleEditIssueCancel = () => {
+    setShowEditIssueModal(false);
+    setEditIssueName('');
+    setEditIssueCategoryId(0);
+  };
+
   const onSubmit = async (data: AddReportFormData) => {
     try {
       const submitData = {
@@ -320,16 +448,21 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               {...register('categoryDropdown')}
               value={categoryDropdown}
               onChange={e => {
-                setCategoryDropdown(e.target.value);
-                setValue('categoryDropdown', e.target.value);
-                const selectedCategory = categories.find(cat => cat.name === e.target.value);
-                console.log('Category selected:', e.target.value);
+                const selectedValue = e.target.value;
+                setCategoryDropdown(selectedValue);
+                setValue('categoryDropdown', selectedValue);
+                
+                // Save selected category to localStorage
+                localStorage.setItem('selectedCategory', selectedValue);
+                
+                const selectedCategory = categories.find(cat => cat.name === selectedValue);
+                console.log('Category selected:', selectedValue);
                 console.log('Selected category object:', selectedCategory);
                 if (selectedCategory) {
                   console.log('Loading solutions for category ID:', selectedCategory.id);
                   loadSolutionsByCategory(selectedCategory.id);
                 } else {
-                  console.log('No category found for:', e.target.value);
+                  console.log('No category found for:', selectedValue);
                 }
               }}
               className="w-full border rounded px-3 py-2 h-12 text-base hover:border-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
@@ -469,6 +602,94 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="issue">Issue</Label>
+          <div className="space-y-3">
+            <div className="flex gap-2">
+              <select
+                id="issueDropdown"
+                {...register('issueDropdown')}
+                value={issueDropdown}
+                onChange={e => {
+                  setIssueDropdown(e.target.value);
+                  setValue('issueDropdown', e.target.value);
+                }}
+                onFocus={() => {
+                  const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
+                  if (selectedCategory && (issuesLoadedForCategory !== selectedCategory.id || issues.length === 0)) {
+                    loadIssuesByCategory(selectedCategory.id);
+                  }
+                }}
+                className={`flex-1 border rounded px-3 py-2 h-12 text-base transition-all duration-200 ${isLoadingIssues ? 'opacity-50 bg-gray-50' : 'opacity-100'}`}
+                disabled={isLoadingIssues}
+              >
+                {!categoryDropdown ? (
+                  <option>Select a category first</option>
+                ) : isLoadingIssues ? (
+                  <option>Loading issues...</option>
+                ) : issues.length === 0 ? (
+                  <option>No issues available</option>
+                ) : (
+                  issues.map((description) => (
+                    <option key={description} value={description}>{description}</option>
+                  ))
+                )}
+              </select>
+              <div className={`flex items-center px-3 py-2 text-sm rounded border transition-all duration-200 h-12 ${
+                !categoryDropdown
+                  ? 'text-gray-500 bg-gray-50 border-gray-200'
+                  : isLoadingIssues 
+                    ? 'text-blue-600 bg-blue-50 border-blue-200' 
+                    : issues.length === 0 
+                      ? 'text-orange-600 bg-orange-50 border-orange-200'
+                      : 'text-green-600 bg-green-50 border-green-200'
+              }`}>
+                {!categoryDropdown ? (
+                  <span>0</span>
+                ) : isLoadingIssues ? (
+                  <span>...</span>
+                ) : (
+                  <span>{issues.length}</span>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Input
+                id="issue"
+                {...register('issue')}
+                placeholder="add new issue"
+                className={`flex-1 h-12 text-base ${errors.issue ? 'border-red-500' : ''}`}
+                value={newIssueName}
+                onChange={(e) => setNewIssueName(e.target.value)}
+              />
+              <Button
+                type="button"
+                onClick={handleAddIssue}
+                disabled={!newIssueName.trim() || isAddingIssue}
+                size="sm"
+                className="h-12 sm:h-10 px-4"
+              >
+                {isAddingIssue ? 'Adding...' : 'Add Issue'}
+              </Button>
+              <Button
+                type="button"
+                onClick={handleEditIssueClick}
+                disabled={isEditingIssue}
+                size="sm"
+                variant="outline"
+                className="h-12 sm:h-10 px-4"
+              >
+                {isEditingIssue ? 'Editing...' : 'Edit Issue'}
+              </Button>
+            </div>
+          </div>
+          {(errors.issueDropdown || errors.issue) && (
+            <p className="text-sm text-red-500">
+              {errors.issueDropdown?.message || errors.issue?.message}
+            </p>
+          )}
+        </div>
+
+        <div className="space-y-2">
           <Label htmlFor="content">Content</Label>
           <Textarea
             id="content"
@@ -590,6 +811,59 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 className="h-12 sm:h-10"
               >
                 {isEditingSolution ? 'Updating...' : 'Accept'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Issue Modal */}
+      <Dialog open={showEditIssueModal} onOpenChange={setShowEditIssueModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Issue</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="editIssueName">Issue Name</Label>
+              <Input
+                id="editIssueName"
+                value={editIssueName}
+                onChange={(e) => setEditIssueName(e.target.value)}
+                placeholder="Enter issue name"
+                className="h-12 text-base"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="editIssueCategory">Category</Label>
+              <select
+                id="editIssueCategory"
+                value={editIssueCategoryId}
+                onChange={(e) => setEditIssueCategoryId(Number(e.target.value))}
+                className="border rounded px-3 py-2 w-full h-12 text-base"
+              >
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleEditIssueCancel}
+                disabled={isEditingIssue}
+                className="h-12 sm:h-10"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                onClick={handleEditIssueAccept}
+                disabled={!editIssueName.trim() || isEditingIssue}
+                className="h-12 sm:h-10"
+              >
+                {isEditingIssue ? 'Updating...' : 'Accept'}
               </Button>
             </div>
           </div>

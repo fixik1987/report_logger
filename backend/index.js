@@ -319,6 +319,115 @@ app.put('/solutions/:id', (req, res) => {
   );
 });
 
+// GET issues by category
+app.get('/issues/category/:categoryId', (req, res) => {
+  const { categoryId } = req.params;
+  
+  db.query(
+    'SELECT description FROM issue WHERE category_id = ? ORDER BY description',
+    [categoryId],
+    (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      res.json(results.map(row => row.description));
+    }
+  );
+});
+
+// GET all issues with categories
+app.get('/issues/with-categories', (req, res) => {
+  db.query(
+    `SELECT i.id, i.description, i.category_id, c.name as category_name 
+     FROM issue i 
+     JOIN categories c ON i.category_id = c.id 
+     ORDER BY c.name, i.description`,
+    (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      res.json(results);
+    }
+  );
+});
+
+// POST create new issue
+app.post('/issues', (req, res) => {
+  const { description, category_id } = req.body;
+  if (!description || !category_id) {
+    return res.status(400).json({ error: 'Issue description and category_id are required' });
+  }
+  
+  db.query(
+    'INSERT INTO issue (description, category_id) VALUES (?, ?)',
+    [description, category_id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Return the created issue
+      db.query('SELECT id, description, category_id FROM issue WHERE id = ?', [result.insertId], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve created issue' });
+        }
+        res.status(201).json(results[0]);
+      });
+    }
+  );
+});
+
+// PUT update issue
+app.put('/issues/:id', (req, res) => {
+  const { id } = req.params;
+  const { description, category_id } = req.body;
+  
+  if (!description || !category_id) {
+    return res.status(400).json({ error: 'Issue description and category_id are required' });
+  }
+  
+  db.query(
+    'UPDATE issue SET description = ?, category_id = ? WHERE id = ?',
+    [description, category_id, id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Issue not found' });
+      }
+      
+      // Return the updated issue
+      db.query('SELECT id, description, category_id FROM issue WHERE id = ?', [id], (err, results) => {
+        if (err || results.length === 0) {
+          return res.status(500).json({ error: 'Failed to retrieve updated issue' });
+        }
+        res.json(results[0]);
+      });
+    }
+  );
+});
+
+// DELETE issue
+app.delete('/issues/:id', (req, res) => {
+  const { id } = req.params;
+  
+  db.query('DELETE FROM issue WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Issue not found' });
+    }
+    
+    res.status(204).send();
+  });
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
