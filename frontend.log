@@ -79,3 +79,29 @@ nohup: ignoring input
 7:49:41 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
 7:49:44 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
 7:49:51 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:20:21 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx, /src/components/ReportsList.tsx
+8:20:35 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:20:37 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:20:40 AM [vite] ✨ new dependencies optimized: @radix-ui/react-checkbox
+8:20:40 AM [vite] ✨ optimized dependencies changed. reloading
+8:20:51 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:05 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:11 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:30 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:32 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:44 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:21:45 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:22:36 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:22:38 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:22:50 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:22:52 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:22:59 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:23:00 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:23:12 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:23:13 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:27:55 AM [vite] hmr update /src/components/ReportFilters.tsx, /src/index.css
+8:27:59 AM [vite] ✨ new dependencies optimized: @radix-ui/react-select
+8:27:59 AM [vite] ✨ optimized dependencies changed. reloading
+8:28:06 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:28:17 AM [vite] hmr update /src/components/Dashboard.tsx, /src/index.css
+8:28:17 AM [vite] hmr update /src/index.css, /src/components/Dashboard.tsx, /src/components/MessageList.tsx, /src/components/AddReportForm.tsx, /src/components/ReportsList.tsx

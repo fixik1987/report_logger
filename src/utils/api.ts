@@ -247,9 +247,35 @@ export const api = {
     return true;
   },
 
-  // Get all reports
-  async getReports(): Promise<any[]> {
-    const response = await fetch(`${API_BASE_URL}/reports`);
+  // Get all reports with optional filtering
+  async getReports(filters?: {
+    dateFrom?: string;
+    dateTo?: string;
+    selectedCategory?: number | null;
+    selectedIssue?: number | null;
+    selectedSolution?: number | null;
+  }): Promise<any[]> {
+    const params = new URLSearchParams();
+    
+    if (filters) {
+      if (filters.dateFrom) params.append('dateFrom', filters.dateFrom);
+      if (filters.dateTo) params.append('dateTo', filters.dateTo);
+      if (filters.selectedCategory) {
+        params.append('categories', filters.selectedCategory.toString());
+      }
+      if (filters.selectedIssue) {
+        params.append('issues', filters.selectedIssue.toString());
+      }
+      if (filters.selectedSolution) {
+        params.append('solutions', filters.selectedSolution.toString());
+      }
+    }
+    
+    const url = filters && params.toString() 
+      ? `${API_BASE_URL}/reports?${params.toString()}`
+      : `${API_BASE_URL}/reports`;
+      
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch reports');
     }

@@ -428,24 +428,73 @@ app.delete('/issues/:id', (req, res) => {
   });
 });
 
-// GET all reports
+// GET all reports with filtering
 app.get('/reports', (req, res) => {
-  db.query(
-    `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
-            c.name as category_name, i.description as issue_description, s.desc as solution_description
-     FROM reports r
-     JOIN categories c ON r.category_id = c.id
-     JOIN issue i ON r.issue_id = i.id
-     JOIN solutions s ON r.solution_id = s.id
-     ORDER BY r.datetime DESC`,
-    (err, results) => {
-      if (err) {
-        res.status(500).json({ error: 'Database error' });
-        return;
-      }
-      res.json(results);
+  const { dateFrom, dateTo, categories, issues, solutions } = req.query;
+  
+  let query = `
+    SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
+           c.name as category_name, i.description as issue_description, s.desc as solution_description
+    FROM reports r
+    JOIN categories c ON r.category_id = c.id
+    JOIN issue i ON r.issue_id = i.id
+    JOIN solutions s ON r.solution_id = s.id
+  `;
+  
+  const conditions = [];
+  const params = [];
+  
+  // Date range filter
+  if (dateFrom) {
+    conditions.push('r.datetime >= ?');
+    params.push(dateFrom + ' 00:00:00');
+  }
+  
+  if (dateTo) {
+    conditions.push('r.datetime <= ?');
+    params.push(dateTo + ' 23:59:59');
+  }
+  
+  // Category filter
+  if (categories) {
+    const categoryId = parseInt(categories);
+    if (!isNaN(categoryId)) {
+      conditions.push('r.category_id = ?');
+      params.push(categoryId);
     }
-  );
+  }
+  
+  // Issue filter
+  if (issues) {
+    const issueId = parseInt(issues);
+    if (!isNaN(issueId)) {
+      conditions.push('r.issue_id = ?');
+      params.push(issueId);
+    }
+  }
+  
+  // Solution filter
+  if (solutions) {
+    const solutionId = parseInt(solutions);
+    if (!isNaN(solutionId)) {
+      conditions.push('r.solution_id = ?');
+      params.push(solutionId);
+    }
+  }
+  
+  if (conditions.length > 0) {
+    query += ' WHERE ' + conditions.join(' AND ');
+  }
+  
+  query += ' ORDER BY r.datetime DESC';
+  
+  db.query(query, params, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Database error' });
+      return;
+    }
+    res.json(results);
+  });
 });
 
 // POST create new report

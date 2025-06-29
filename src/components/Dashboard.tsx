@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { MessageList } from './MessageList';
 import { ReportsList } from './ReportsList';
 import { AddReportForm } from './AddReportForm';
+import { ReportFilters } from './ReportFilters';
 import { Message } from '@/types/Message';
 import { api } from '@/utils/api';
 import { LogOut, Plus, MessageSquare, FileText, RefreshCw } from 'lucide-react';
@@ -26,11 +27,23 @@ export const Dashboard = () => {
   const { user, logout } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [reports, setReports] = useState<Report[]>([]);
+  const [totalReports, setTotalReports] = useState<Report[]>([]);
+  const [categories, setCategories] = useState<{id: number, name: string}[]>([]);
+  const [issues, setIssues] = useState<{id: number, description: string, category_id: number, category_name: string}[]>([]);
+  const [solutions, setSolutions] = useState<{id: number, desc: string, category_id: number, category_name: string}[]>([]);
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'edit'>('list');
   const [currentSection, setCurrentSection] = useState<'messages' | 'reports'>('reports');
   const [editingMessage, setEditingMessage] = useState<Message | null>(null);
   const [editingReport, setEditingReport] = useState<Report | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    dateFrom: '',
+    dateTo: '',
+    selectedCategory: null as number | null,
+    selectedIssue: null as number | null,
+    selectedSolution: null as number | null,
+  });
   const { toast } = useToast();
 
   const loadMessages = async () => {
@@ -53,7 +66,7 @@ export const Dashboard = () => {
   const loadReports = async () => {
     try {
       setIsLoading(true);
-      const data = await api.getReports();
+      const data = await api.getReports(filters);
       setReports(data);
     } catch (error) {
       toast({
@@ -67,10 +80,50 @@ export const Dashboard = () => {
     }
   };
 
+  const loadTotalReports = async () => {
+    try {
+      const data = await api.getReports();
+      setTotalReports(data);
+    } catch (error) {
+      console.error('Failed to load total reports:', error);
+    }
+  };
+
+  const loadCategories = async () => {
+    try {
+      const data = await api.getCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error('Failed to load categories:', error);
+    }
+  };
+
+  const loadIssues = async () => {
+    try {
+      const data = await api.getIssuesWithCategories();
+      setIssues(data);
+    } catch (error) {
+      console.error('Failed to load issues:', error);
+    }
+  };
+
+  const loadSolutions = async () => {
+    try {
+      const data = await api.getSolutionsWithCategories();
+      setSolutions(data);
+    } catch (error) {
+      console.error('Failed to load solutions:', error);
+    }
+  };
+
   useEffect(() => {
     // Always load both reports and messages to keep tab counts accurate
     loadReports();
     loadMessages();
+    loadCategories();
+    loadIssues();
+    loadSolutions();
+    loadTotalReports();
   }, []);
 
   useEffect(() => {
@@ -79,7 +132,7 @@ export const Dashboard = () => {
     } else {
       loadReports();
     }
-  }, [currentSection]);
+  }, [currentSection, filters]);
 
   // Refresh data when component mounts and when returning to list view
   useEffect(() => {
@@ -87,8 +140,9 @@ export const Dashboard = () => {
       // Always load both to keep counts accurate
       loadReports();
       loadMessages();
+      loadTotalReports();
     }
-  }, [currentView]);
+  }, [currentView, filters]);
 
   // Refresh data when the page becomes visible (user returns to tab)
   useEffect(() => {
@@ -104,7 +158,7 @@ export const Dashboard = () => {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [currentView]);
+  }, [currentView, filters]);
 
   const handleCreateNew = () => {
     setEditingMessage(null);
@@ -139,6 +193,20 @@ export const Dashboard = () => {
     // Always refresh both to keep counts accurate
     loadReports();
     loadMessages();
+  };
+
+  const handleFilterChange = (newFilters: any) => {
+    setFilters(newFilters);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      dateFrom: '',
+      dateTo: '',
+      selectedCategory: null,
+      selectedIssue: null,
+      selectedSolution: null,
+    });
   };
 
   return (
@@ -184,7 +252,7 @@ export const Dashboard = () => {
                 className="flex items-center gap-2 h-12 sm:h-10"
               >
                 <FileText className="h-4 w-4" />
-                Reports ({reports.length})
+                Reports ({totalReports.length})
               </Button>
               <Button
                 variant={currentSection === 'messages' ? 'default' : 'outline'}
@@ -203,7 +271,12 @@ export const Dashboard = () => {
                   <div className="flex items-center gap-4">
                     <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                       <FileText className="h-5 w-5" />
-                      Your Reports ({reports.length})
+                      Your Reports (
+                        {filters.dateFrom || filters.dateTo || filters.selectedCategory || filters.selectedIssue || filters.selectedSolution 
+                          ? `${reports.length} of ${totalReports.length}`
+                          : totalReports.length
+                        }
+                      )
                     </h2>
                     <Button
                       variant="outline"
@@ -223,6 +296,18 @@ export const Dashboard = () => {
                     Create New Report
                   </Button>
                 </div>
+                
+                <ReportFilters
+                  categories={categories}
+                  issues={issues}
+                  solutions={solutions}
+                  filters={filters}
+                  onFilterChange={handleFilterChange}
+                  onClearFilters={handleClearFilters}
+                  isOpen={filtersOpen}
+                  onToggle={() => setFiltersOpen(!filtersOpen)}
+                />
+                
                 <ReportsList 
                   reports={reports} 
                   onEdit={handleEditReport}
