@@ -126,11 +126,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
   };
 
   const loadIssuesByCategory = async (categoryId: number) => {
-    // Don't reload if issues are already loaded for this category
-    if (issuesLoadedForCategory === categoryId && issues.length > 0) {
-      return;
-    }
-    
     try {
       setIsLoadingIssues(true);
       const [iss, issWithCats] = await Promise.all([
@@ -141,15 +136,13 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       setIssuesWithCategories(issWithCats);
       setIssuesLoadedForCategory(categoryId);
       
-      // Only set first issue if no issue is currently selected
-      if (iss.length > 0 && !issueDropdown) {
+      if (iss.length > 0) {
         setIssueDropdown(iss[0]);
         setValue('issueDropdown', iss[0]);
-      } else if (iss.length === 0) {
+      } else {
         setIssueDropdown('');
         setValue('issueDropdown', '');
       }
-      // If issues exist and an issue is already selected, keep the current selection
     } catch (error) {
       toast({
         title: "Error",
@@ -191,8 +184,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
 
     loadCategories();
   }, [setValue, toast, loadSolutionsByCategory]);
-
-  // Removed automatic issue loading - issues will be loaded manually when needed
 
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
@@ -461,6 +452,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 if (selectedCategory) {
                   console.log('Loading solutions for category ID:', selectedCategory.id);
                   loadSolutionsByCategory(selectedCategory.id);
+                  loadIssuesByCategory(selectedCategory.id);
                 } else {
                   console.log('No category found for:', selectedValue);
                 }
@@ -612,12 +604,6 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 onChange={e => {
                   setIssueDropdown(e.target.value);
                   setValue('issueDropdown', e.target.value);
-                }}
-                onFocus={() => {
-                  const selectedCategory = categories.find(cat => cat.name === categoryDropdown);
-                  if (selectedCategory && (issuesLoadedForCategory !== selectedCategory.id || issues.length === 0)) {
-                    loadIssuesByCategory(selectedCategory.id);
-                  }
                 }}
                 className={`flex-1 border rounded px-3 py-2 h-12 text-base transition-all duration-200 ${isLoadingIssues ? 'opacity-50 bg-gray-50' : 'opacity-100'}`}
                 disabled={isLoadingIssues}
