@@ -18,6 +18,12 @@ interface Report {
   solution_id: number;
   datetime: string;
   notes: string;
+  pic_name1?: string | null;
+  pic_name2?: string | null;
+  pic_name3?: string | null;
+  status: string;
+  priority: string;
+  escalate_name?: string | null;
   category_name: string;
   issue_description: string;
   solution_description: string;
@@ -67,6 +73,7 @@ export const Dashboard = () => {
     try {
       setIsLoading(true);
       const data = await api.getReports(filters);
+      console.log('Loaded reports:', data.length, 'reports');
       setReports(data);
     } catch (error) {
       toast({
@@ -179,6 +186,7 @@ export const Dashboard = () => {
   };
 
   const handleFormSuccess = () => {
+    console.log('Form success - refreshing data...');
     if (currentSection === 'messages') {
       loadMessages();
     } else {

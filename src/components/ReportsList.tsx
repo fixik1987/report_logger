@@ -17,6 +17,9 @@ interface Report {
   pic_name1?: string | null;
   pic_name2?: string | null;
   pic_name3?: string | null;
+  status: string;
+  priority: string;
+  escalate_name?: string | null;
   category_name: string;
   issue_description: string;
   solution_description: string;
@@ -235,6 +238,30 @@ export const ReportsList: React.FC<ReportsListProps> = ({
                 <div>
                   <p className="text-xs text-green-600 font-medium">Solution</p>
                   <p className="text-sm text-gray-700">{report.solution_description}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="flex items-center gap-2 p-2 bg-blue-50 rounded border">
+                <Tag className="h-4 w-4 text-blue-600" />
+                <div>
+                  <p className="text-xs text-blue-600 font-medium">Status</p>
+                  <p className="text-sm text-gray-700 capitalize">
+                    {report.status === 'in_progress' ? 'In Progress' : report.status}
+                    {report.status === 'escalate' && report.escalate_name && (
+                      <span className="block text-xs text-gray-500">
+                        To: {report.escalate_name}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 p-2 bg-purple-50 rounded border">
+                <Tag className="h-4 w-4 text-purple-600" />
+                <div>
+                  <p className="text-xs text-purple-600 font-medium">Priority</p>
+                  <p className="text-sm text-gray-700 capitalize">{report.priority}</p>
                 </div>
               </div>
             </div>

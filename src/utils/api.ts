@@ -283,12 +283,15 @@ export const api = {
   },
 
   // Create a new report
-  async createReport(report: { category_id: number, issue_id: number, solution_id: number, notes?: string, images?: (File|null)[] }): Promise<any> {
+  async createReport(report: { category_id: number, issue_id: number, solution_id: number, notes?: string, status?: string, priority?: string, escalate_name?: string, images?: (File|null)[] }): Promise<any> {
     const formData = new FormData();
     formData.append('category_id', String(report.category_id));
     formData.append('issue_id', String(report.issue_id));
     formData.append('solution_id', String(report.solution_id));
     if (report.notes) formData.append('notes', report.notes);
+    if (report.status) formData.append('status', report.status);
+    if (report.priority) formData.append('priority', report.priority);
+    if (report.escalate_name) formData.append('escalate_name', report.escalate_name);
     if (report.images) {
       report.images.forEach((img, idx) => {
         if (img) formData.append(`pic_name${idx+1}`, img);
@@ -305,12 +308,15 @@ export const api = {
   },
 
   // Update a report
-  async updateReport(id: number, updates: { category_id: number, issue_id: number, solution_id: number, notes?: string, images?: (File|null)[] }): Promise<any> {
+  async updateReport(id: number, updates: { category_id: number, issue_id: number, solution_id: number, notes?: string, status?: string, priority?: string, escalate_name?: string, images?: (File|null)[] }): Promise<any> {
     const formData = new FormData();
     formData.append('category_id', String(updates.category_id));
     formData.append('issue_id', String(updates.issue_id));
     formData.append('solution_id', String(updates.solution_id));
     if (updates.notes) formData.append('notes', updates.notes);
+    if (updates.status) formData.append('status', updates.status);
+    if (updates.priority) formData.append('priority', updates.priority);
+    if (updates.escalate_name) formData.append('escalate_name', updates.escalate_name);
     if (updates.images) {
       updates.images.forEach((img, idx) => {
         if (img) formData.append(`pic_name${idx+1}`, img);

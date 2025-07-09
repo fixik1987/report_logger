@@ -536,6 +536,7 @@ app.get('/reports', (req, res) => {
   
   let query = `
     SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+           r.status, r.priority, r.escalate_name,
            c.name as category_name, i.description as issue_description, s.desc as solution_description
     FROM reports r
     JOIN categories c ON r.category_id = c.id
@@ -609,14 +610,17 @@ app.post('/reports', upload.fields([
   const issue_id = req.body.issue_id;
   const solution_id = req.body.solution_id;
   const notes = req.body.notes;
+  const status = req.body.status || 'in_progress';
+  const priority = req.body.priority || 'pendant';
+  const escalate_name = req.body.escalate_name || null;
   
   if (!category_id || !issue_id || !solution_id) {
     return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
   }
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   db.query(
-    'INSERT INTO reports (category_id, issue_id, solution_id, datetime, notes) VALUES (?, ?, ?, ?, ?)',
-    [category_id, issue_id, solution_id, now, notes || null],
+    'INSERT INTO reports (category_id, issue_id, solution_id, datetime, notes, status, priority, escalate_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [category_id, issue_id, solution_id, now, notes || null, status, priority, escalate_name],
     (err, result) => {
       if (err) {
         return res.status(500).json({ error: 'Database error' });
@@ -659,6 +663,7 @@ app.post('/reports', upload.fields([
             // Return the created report
             db.query(
               `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+                      r.status, r.priority, r.escalate_name,
                       c.name as category_name, i.description as issue_description, s.desc as solution_description
                FROM reports r
                JOIN categories c ON r.category_id = c.id
@@ -693,6 +698,9 @@ app.put('/reports/:id', upload.fields([
   const issue_id = req.body.issue_id;
   const solution_id = req.body.solution_id;
   const notes = req.body.notes;
+  const status = req.body.status;
+  const priority = req.body.priority;
+  const escalate_name = req.body.escalate_name;
   
   if (!category_id || !issue_id || !solution_id) {
     return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
@@ -740,8 +748,8 @@ app.put('/reports/:id', upload.fields([
       const updatedPic3 = picUrls.pic_name3 || current.pic_name3;
       
       db.query(
-        'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ?, pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
-        [category_id, issue_id, solution_id, notes || null, updatedPic1, updatedPic2, updatedPic3, id],
+        'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ?, status = ?, priority = ?, escalate_name = ?, pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
+        [category_id, issue_id, solution_id, notes || null, status, priority, escalate_name, updatedPic1, updatedPic2, updatedPic3, id],
         (err, result) => {
           if (err) {
             return res.status(500).json({ error: 'Database error' });
@@ -752,6 +760,7 @@ app.put('/reports/:id', upload.fields([
           // Return the updated report
           db.query(
             `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+                    r.status, r.priority, r.escalate_name,
                     c.name as category_name, i.description as issue_description, s.desc as solution_description
              FROM reports r
              JOIN categories c ON r.category_id = c.id

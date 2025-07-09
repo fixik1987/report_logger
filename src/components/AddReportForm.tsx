@@ -23,6 +23,9 @@ const messageSchema = z.object({
   issue: z.string().optional(),
   issueDropdown: z.string().min(1, 'Select an issue'),
   content: z.string().min(1, 'Notes is required').max(1000, 'Notes must be less than 1000 characters'),
+  status: z.string().min(1, 'Select a status'),
+  priority: z.string().min(1, 'Select a priority'),
+  escalate_name: z.string().optional(),
 });
 
 type AddReportFormData = z.infer<typeof messageSchema>;
@@ -41,6 +44,9 @@ interface AddReportFormProps {
     pic_name1: string | null;
     pic_name2: string | null;
     pic_name3: string | null;
+    status: string;
+    priority: string;
+    escalate_name: string | null;
   };
   onSuccess: () => void;
   onCancel: () => void;
@@ -90,6 +96,11 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
   const [imageSizes, setImageSizes] = useState<(string|null)[]>([null, null, null]);
   const fileInputRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
 
+  // Status and Priority states
+  const [status, setStatus] = useState('in_progress');
+  const [priority, setPriority] = useState('pendant');
+  const [escalate_name, setEscalate_name] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -108,6 +119,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       issue: '',
       issueDropdown: '',
       content: message?.content || '',
+      status: 'in_progress',
+      priority: 'pendant',
+      escalate_name: '',
     },
   });
 
@@ -220,6 +234,14 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
                 report.pic_name3 ? `${API_BASE_URL}${report.pic_name3}` : null
               ]);
             }
+
+            // Set status and priority fields
+            setStatus(report.status || 'in_progress');
+            setValue('status', report.status || 'in_progress');
+            setPriority(report.priority || 'pendant');
+            setValue('priority', report.priority || 'pendant');
+            setEscalate_name(report.escalate_name || '');
+            setValue('escalate_name', report.escalate_name || '');
             }
           } else {
             // This is a Message object (legacy)
@@ -674,8 +696,13 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
         solution_id: selectedSolution.id,
         issue_id: selectedIssue.id,
         notes: data.content,
+        status: data.status,
+        priority: data.priority,
+        escalate_name: data.escalate_name || null,
         images: selectedImages
       };
+
+      console.log('Submitting report with data:', submitData);
 
       if (isEditing && message) {
         // Determine the ID based on the message type
@@ -967,6 +994,70 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             <p className="text-sm text-red-500">{errors.content.message}</p>
           )}
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="status">Status</Label>
+            <select
+              id="status"
+              {...register('status')}
+              value={status}
+              onChange={(e) => {
+                setStatus(e.target.value);
+                setValue('status', e.target.value);
+              }}
+              className="w-full border rounded px-3 py-2 h-12 text-base hover:border-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
+            >
+              <option value="in_progress">In Progress</option>
+              <option value="done">Done</option>
+              <option value="escalate">Escalate</option>
+            </select>
+            {errors.status && (
+              <p className="text-sm text-red-500">{errors.status.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="priority">Priority</Label>
+            <select
+              id="priority"
+              {...register('priority')}
+              value={priority}
+              onChange={(e) => {
+                setPriority(e.target.value);
+                setValue('priority', e.target.value);
+              }}
+              className="w-full border rounded px-3 py-2 h-12 text-base hover:border-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
+            >
+              <option value="pendant">Pendant</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+            {errors.priority && (
+              <p className="text-sm text-red-500">{errors.priority.message}</p>
+            )}
+          </div>
+        </div>
+
+        {status === 'escalate' && (
+          <div className="space-y-2">
+            <Label htmlFor="escalate_name">Escalate To (Name)</Label>
+            <Input
+              id="escalate_name"
+              {...register('escalate_name')}
+              placeholder="Enter name for escalation"
+              value={escalate_name}
+              onChange={(e) => {
+                setEscalate_name(e.target.value);
+                setValue('escalate_name', e.target.value);
+              }}
+              className="h-12 text-base"
+            />
+            {errors.escalate_name && (
+              <p className="text-sm text-red-500">{errors.escalate_name.message}</p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label>Pictures</Label>
