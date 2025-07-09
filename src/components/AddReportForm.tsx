@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -9,7 +9,10 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Message } from '@/types/Message';
 import { api } from '@/utils/api';
+
+const API_BASE_URL = 'http://192.168.68.113:3001';
 import { useToast } from '@/hooks/use-toast';
+import { Image, X, Upload } from 'lucide-react';
 
 const messageSchema = z.object({
   category: z.string().optional(),
@@ -35,6 +38,9 @@ interface AddReportFormProps {
     category_name: string;
     issue_description: string;
     solution_description: string;
+    pic_name1: string | null;
+    pic_name2: string | null;
+    pic_name3: string | null;
   };
   onSuccess: () => void;
   onCancel: () => void;
@@ -76,6 +82,13 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
   const [editIssueName, setEditIssueName] = useState('');
   const [editIssueCategoryId, setEditIssueCategoryId] = useState<number>(0);
   const [issuesLoadedForCategory, setIssuesLoadedForCategory] = useState<number | null>(null);
+
+  // Image states
+  const [selectedImages, setSelectedImages] = useState<(File|null)[]>([null, null, null]);
+  const [imagePreviews, setImagePreviews] = useState<(string|null)[]>([null, null, null]);
+  const [existingImageUrls, setExistingImageUrls] = useState<(string|null)[]>([null, null, null]);
+  const [imageSizes, setImageSizes] = useState<(string|null)[]>([null, null, null]);
+  const fileInputRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
 
   const {
     register,
@@ -191,13 +204,22 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               loadSolutionsByCategory(selectedCategory.id);
               loadIssuesByCategory(selectedCategory.id);
               
-              // Set the existing solution and issue after they're loaded
-              setTimeout(() => {
-                setSolutionDropdown(report.solution_description);
-                setValue('solutionDropdown', report.solution_description);
-                setIssueDropdown(report.issue_description);
-                setValue('issueDropdown', report.issue_description);
-              }, 500);
+                          // Set the existing solution and issue after they're loaded
+            setTimeout(() => {
+              setSolutionDropdown(report.solution_description);
+              setValue('solutionDropdown', report.solution_description);
+              setIssueDropdown(report.issue_description);
+              setValue('issueDropdown', report.issue_description);
+            }, 500);
+            
+            // Set existing image if available
+            if (report.pic_name1) {
+              setExistingImageUrls([
+                report.pic_name1 ? `${API_BASE_URL}${report.pic_name1}` : null,
+                report.pic_name2 ? `${API_BASE_URL}${report.pic_name2}` : null,
+                report.pic_name3 ? `${API_BASE_URL}${report.pic_name3}` : null
+              ]);
+            }
             }
           } else {
             // This is a Message object (legacy)
@@ -244,6 +266,45 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
 
     loadCategories();
   }, [setValue, toast, isEditing, message]);
+
+  useEffect(() => {
+    if (isEditing && message && 'pic_name1' in message) {
+      setExistingImageUrls([
+        message.pic_name1 ? `${API_BASE_URL}${message.pic_name1}` : null,
+        message.pic_name2 ? `${API_BASE_URL}${message.pic_name2}` : null,
+        message.pic_name3 ? `${API_BASE_URL}${message.pic_name3}` : null
+      ]);
+      
+      // Fetch actual file sizes for existing images
+      const fetchFileSizes = async () => {
+        const imagePaths = [message.pic_name1, message.pic_name2, message.pic_name3].filter(Boolean);
+        if (imagePaths.length > 0) {
+          try {
+            const response = await fetch(`${API_BASE_URL}/file-sizes?${imagePaths.map(path => `files=${encodeURIComponent(path)}`).join('&')}`);
+            if (response.ok) {
+              const fileSizes = await response.json();
+              const newSizes = [
+                message.pic_name1 ? (fileSizes[message.pic_name1] ? formatFileSize(fileSizes[message.pic_name1]) : 'Unknown') : null,
+                message.pic_name2 ? (fileSizes[message.pic_name2] ? formatFileSize(fileSizes[message.pic_name2]) : 'Unknown') : null,
+                message.pic_name3 ? (fileSizes[message.pic_name3] ? formatFileSize(fileSizes[message.pic_name3]) : 'Unknown') : null
+              ];
+              setImageSizes(newSizes);
+            }
+          } catch (error) {
+            console.error('Failed to fetch file sizes:', error);
+            // Fallback to "Unknown" if fetch fails
+            setImageSizes([
+              message.pic_name1 ? 'Unknown' : null,
+              message.pic_name2 ? 'Unknown' : null,
+              message.pic_name3 ? 'Unknown' : null
+            ]);
+          }
+        }
+      };
+      
+      fetchFileSizes();
+    }
+  }, [isEditing, message]);
 
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
@@ -492,6 +553,80 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
     setEditIssueCategoryId(0);
   };
 
+  // Image handling functions
+  const handleImageSelect = (idx: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Error",
+          description: "Please select a valid image file",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Error",
+          description: "Image file size must be less than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      const newSelected = [...selectedImages];
+      newSelected[idx] = file;
+      setSelectedImages(newSelected);
+      
+      // Calculate and store file size
+      const newSizes = [...imageSizes];
+      newSizes[idx] = formatFileSize(file.size);
+      setImageSizes(newSizes);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const newPreviews = [...imagePreviews];
+        newPreviews[idx] = e.target?.result as string;
+        setImagePreviews(newPreviews);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = (idx: number) => () => {
+    const newSelected = [...selectedImages];
+    newSelected[idx] = null;
+    setSelectedImages(newSelected);
+    const newPreviews = [...imagePreviews];
+    newPreviews[idx] = null;
+    setImagePreviews(newPreviews);
+    const newSizes = [...imageSizes];
+    newSizes[idx] = null;
+    setImageSizes(newSizes);
+    // Optionally restore existing image url if editing
+    if (isEditing && message && 'pic_name1' in message) {
+      const newExisting = [...existingImageUrls];
+      newExisting[idx] = message[`pic_name${idx+1}`] ? `${API_BASE_URL}${message[`pic_name${idx+1}`]}` : null;
+      setExistingImageUrls(newExisting);
+    }
+  };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const handleImageButtonClick = (idx: number) => () => {
+    fileInputRefs[idx].current?.click();
+  };
+
   const onSubmit = async (data: AddReportFormData) => {
     console.log('Form submission data:', data);
     console.log('Current dropdown states:', {
@@ -539,6 +674,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
         solution_id: selectedSolution.id,
         issue_id: selectedIssue.id,
         notes: data.content,
+        images: selectedImages
       };
 
       if (isEditing && message) {
@@ -558,6 +694,9 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       }
       onSuccess();
       reset();
+      setSelectedImages([null, null, null]);
+      setImagePreviews([null, null, null]);
+      setExistingImageUrls([null, null, null]);
     } catch (error) {
       toast({
         title: "Error",
@@ -827,6 +966,53 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
           {errors.content && (
             <p className="text-sm text-red-500">{errors.content.message}</p>
           )}
+        </div>
+
+        <div className="space-y-2">
+          <Label>Pictures</Label>
+          <div className="flex flex-col gap-4">
+            {[0,1,2].map(idx => (
+              <div key={idx} className="flex items-center gap-4">
+                <input
+                  ref={fileInputRefs[idx]}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageSelect(idx)}
+                  className="hidden"
+                />
+                <Button type="button" onClick={handleImageButtonClick(idx)} variant="outline" className="h-12 w-36" >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Add Picture {idx+1}
+                </Button>
+                {(imagePreviews[idx] || existingImageUrls[idx]) && (
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={imagePreviews[idx] || existingImageUrls[idx] || ''}
+                      alt={`Preview ${idx+1}`}
+                      className="max-w-[120px] max-h-[120px] rounded-lg border"
+                    />
+                    <div className="flex flex-col gap-1">
+                      {imageSizes[idx] && (
+                        <div className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
+                          {imageSizes[idx]}
+                        </div>
+                      )}
+                      <Button 
+                        type="button" 
+                        onClick={handleRemoveImage(idx)} 
+                        size="sm" 
+                        variant="destructive" 
+                        className="h-8 px-3 text-xs"
+                      >
+                        <X className="w-3 h-3 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">

@@ -1,10 +1,112 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const sharp = require('sharp');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Configure multer for image uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = path.join(__dirname, 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    // We'll rename after we know the reportId
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  fileFilter: function (req, file, cb) {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'));
+    }
+  }
+});
+
+// Function to compress image
+const compressImage = async (inputPath, outputPath) => {
+  try {
+    await sharp(inputPath)
+      .jpeg({ 
+        quality: 85, 
+        progressive: true,
+        mozjpeg: true 
+      })
+      .png({ 
+        quality: 85,
+        progressive: true,
+        compressionLevel: 9
+      })
+      .webp({ 
+        quality: 85,
+        effort: 6
+      })
+      .resize(1920, 1920, { 
+        fit: 'inside',
+        withoutEnlargement: true 
+      })
+      .toFile(outputPath);
+    
+    // Remove original file
+    fs.unlinkSync(inputPath);
+    return true;
+  } catch (error) {
+    console.error('Image compression error:', error);
+    return false;
+  }
+};
+
+// Serve uploaded images
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// GET file sizes for images
+app.get('/file-sizes', (req, res) => {
+  const { files } = req.query;
+  
+  if (!files) {
+    return res.status(400).json({ error: 'Files parameter is required' });
+  }
+  
+  const fileList = Array.isArray(files) ? files : [files];
+  const fileSizes = {};
+  
+  fileList.forEach(filePath => {
+    if (filePath && filePath.startsWith('/uploads/')) {
+      const fullPath = path.join(__dirname, filePath);
+      try {
+        if (fs.existsSync(fullPath)) {
+          const stats = fs.statSync(fullPath);
+          fileSizes[filePath] = stats.size;
+        } else {
+          fileSizes[filePath] = null;
+        }
+      } catch (error) {
+        fileSizes[filePath] = null;
+      }
+    }
+  });
+  
+  res.json(fileSizes);
+});
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -433,7 +535,7 @@ app.get('/reports', (req, res) => {
   const { dateFrom, dateTo, categories, issues, solutions } = req.query;
   
   let query = `
-    SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
+    SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
            c.name as category_name, i.description as issue_description, s.desc as solution_description
     FROM reports r
     JOIN categories c ON r.category_id = c.id
@@ -498,12 +600,19 @@ app.get('/reports', (req, res) => {
 });
 
 // POST create new report
-app.post('/reports', (req, res) => {
-  const { category_id, issue_id, solution_id, notes } = req.body;
+app.post('/reports', upload.fields([
+  { name: 'pic_name1', maxCount: 1 },
+  { name: 'pic_name2', maxCount: 1 },
+  { name: 'pic_name3', maxCount: 1 }
+]), (req, res) => {
+  const category_id = req.body.category_id;
+  const issue_id = req.body.issue_id;
+  const solution_id = req.body.solution_id;
+  const notes = req.body.notes;
+  
   if (!category_id || !issue_id || !solution_id) {
     return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
   }
-  
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   db.query(
     'INSERT INTO reports (category_id, issue_id, solution_id, datetime, notes) VALUES (?, ?, ?, ?, ?)',
@@ -512,68 +621,157 @@ app.post('/reports', (req, res) => {
       if (err) {
         return res.status(500).json({ error: 'Database error' });
       }
+      const reportId = result.insertId;
+      // Handle images with compression
+      const picFields = ['pic_name1', 'pic_name2', 'pic_name3'];
+      const picUrls = {};
+      const today = new Date();
+      const dateStr = today.toLocaleDateString('en-GB').replace(/\//g, ''); // ddMMyyyy
       
-      // Return the created report
-      db.query(
-        `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
-                c.name as category_name, i.description as issue_description, s.desc as solution_description
-         FROM reports r
-         JOIN categories c ON r.category_id = c.id
-         JOIN issue i ON r.issue_id = i.id
-         JOIN solutions s ON r.solution_id = s.id
-         WHERE r.id = ?`,
-        [result.insertId],
-        (err, results) => {
-          if (err || results.length === 0) {
-            return res.status(500).json({ error: 'Failed to retrieve created report' });
+      const processImages = async () => {
+        for (const field of picFields) {
+          if (req.files && req.files[field] && req.files[field][0]) {
+            const file = req.files[field][0];
+            const ext = path.extname(file.originalname);
+            const newName = `${reportId}_${field}_${dateStr}${ext}`;
+            const newPath = path.join(path.join(__dirname, 'uploads'), newName);
+            
+            // Compress the image
+            const compressed = await compressImage(file.path, newPath);
+            if (compressed) {
+              picUrls[field] = `/uploads/${newName}`;
+            } else {
+              // Fallback to original if compression fails
+              fs.renameSync(file.path, newPath);
+              picUrls[field] = `/uploads/${newName}`;
+            }
           }
-          res.status(201).json(results[0]);
         }
-      );
+        
+        // Update report with image URLs
+        db.query(
+          'UPDATE reports SET pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
+          [picUrls.pic_name1 || null, picUrls.pic_name2 || null, picUrls.pic_name3 || null, reportId],
+          (err2) => {
+            if (err2) {
+              return res.status(500).json({ error: 'Failed to update report with images' });
+            }
+            // Return the created report
+            db.query(
+              `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+                      c.name as category_name, i.description as issue_description, s.desc as solution_description
+               FROM reports r
+               JOIN categories c ON r.category_id = c.id
+               JOIN issue i ON r.issue_id = i.id
+               JOIN solutions s ON r.solution_id = s.id
+               WHERE r.id = ?`,
+              [reportId],
+              (err3, results) => {
+                if (err3 || results.length === 0) {
+                  return res.status(500).json({ error: 'Failed to retrieve created report' });
+                }
+                res.status(201).json(results[0]);
+              }
+            );
+          }
+        );
+      };
+      
+      processImages();
     }
   );
 });
 
 // PUT update report
-app.put('/reports/:id', (req, res) => {
+app.put('/reports/:id', upload.fields([
+  { name: 'pic_name1', maxCount: 1 },
+  { name: 'pic_name2', maxCount: 1 },
+  { name: 'pic_name3', maxCount: 1 }
+]), (req, res) => {
   const { id } = req.params;
-  const { category_id, issue_id, solution_id, notes } = req.body;
+  const category_id = req.body.category_id;
+  const issue_id = req.body.issue_id;
+  const solution_id = req.body.solution_id;
+  const notes = req.body.notes;
   
   if (!category_id || !issue_id || !solution_id) {
     return res.status(400).json({ error: 'Category ID, Issue ID, and Solution ID are required' });
   }
+  // Handle images with compression
+  const picFields = ['pic_name1', 'pic_name2', 'pic_name3'];
+  const picUrls = {};
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-GB').replace(/\//g, ''); // ddMMyyyy
   
-  db.query(
-    'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ? WHERE id = ?',
-    [category_id, issue_id, solution_id, notes || null, id],
-    (err, result) => {
+  const processImages = async () => {
+    for (const field of picFields) {
+      if (req.files && req.files[field] && req.files[field][0]) {
+        const file = req.files[field][0];
+        const ext = path.extname(file.originalname);
+        const newName = `${id}_${field}_${dateStr}${ext}`;
+        const newPath = path.join(path.join(__dirname, 'uploads'), newName);
+        
+        // Compress the image
+        const compressed = await compressImage(file.path, newPath);
+        if (compressed) {
+          picUrls[field] = `/uploads/${newName}`;
+        } else {
+          // Fallback to original if compression fails
+          fs.renameSync(file.path, newPath);
+          picUrls[field] = `/uploads/${newName}`;
+        }
+      }
+    }
+    
+    // First, get the current report to preserve existing images
+    db.query('SELECT pic_name1, pic_name2, pic_name3 FROM reports WHERE id = ?', [id], (err, currentReport) => {
       if (err) {
         return res.status(500).json({ error: 'Database error' });
       }
       
-      if (result.affectedRows === 0) {
+      if (currentReport.length === 0) {
         return res.status(404).json({ error: 'Report not found' });
       }
       
-      // Return the updated report
+      const current = currentReport[0];
+      // Only update image fields that have new images uploaded
+      const updatedPic1 = picUrls.pic_name1 || current.pic_name1;
+      const updatedPic2 = picUrls.pic_name2 || current.pic_name2;
+      const updatedPic3 = picUrls.pic_name3 || current.pic_name3;
+      
       db.query(
-        `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes,
-                c.name as category_name, i.description as issue_description, s.desc as solution_description
-         FROM reports r
-         JOIN categories c ON r.category_id = c.id
-         JOIN issue i ON r.issue_id = i.id
-         JOIN solutions s ON r.solution_id = s.id
-         WHERE r.id = ?`,
-        [id],
-        (err, results) => {
-          if (err || results.length === 0) {
-            return res.status(500).json({ error: 'Failed to retrieve updated report' });
+        'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ?, pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
+        [category_id, issue_id, solution_id, notes || null, updatedPic1, updatedPic2, updatedPic3, id],
+        (err, result) => {
+          if (err) {
+            return res.status(500).json({ error: 'Database error' });
           }
-          res.json(results[0]);
+          if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Report not found' });
+          }
+          // Return the updated report
+          db.query(
+            `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+                    c.name as category_name, i.description as issue_description, s.desc as solution_description
+             FROM reports r
+             JOIN categories c ON r.category_id = c.id
+             JOIN issue i ON r.issue_id = i.id
+             JOIN solutions s ON r.solution_id = s.id
+             WHERE r.id = ?`,
+            [id],
+            (err2, results) => {
+              if (err2 || results.length === 0) {
+                return res.status(500).json({ error: 'Failed to retrieve updated report' });
+              }
+              res.json(results[0]);
+            }
+          );
         }
       );
-    }
-  );
+    });
+  };
+  
+  processImages();
 });
 
 // DELETE report
@@ -591,6 +789,82 @@ app.delete('/reports/:id', (req, res) => {
     
     res.status(204).send();
   });
+});
+
+// DELETE individual picture from report
+app.delete('/reports/:id/picture', (req, res) => {
+  const { id } = req.params;
+  const { field, path: picturePath } = req.body;
+  
+  if (!field || !picturePath) {
+    return res.status(400).json({ error: 'Field and path are required' });
+  }
+  
+  // First, get the current report to check if the picture exists
+  db.query('SELECT pic_name1, pic_name2, pic_name3 FROM reports WHERE id = ?', [id], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+    
+    const report = results[0];
+    const currentPath = report[field];
+    
+    if (currentPath !== picturePath) {
+      return res.status(400).json({ error: 'Picture path mismatch' });
+    }
+    
+    // Delete the file from the filesystem
+    const fullPath = path.join(__dirname, picturePath);
+    try {
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      // Continue with database update even if file deletion fails
+    }
+    
+    // Update the database to set the picture field to null
+    const updateQuery = `UPDATE reports SET ${field} = NULL WHERE id = ?`;
+    db.query(updateQuery, [id], (err2, result) => {
+      if (err2) {
+        return res.status(500).json({ error: 'Failed to update report' });
+      }
+      
+      res.json({ success: true, message: 'Picture deleted successfully' });
+    });
+  });
+});
+
+// POST upload image
+app.post('/upload-image', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No image file uploaded' });
+  }
+  
+  const imageUrl = `http://192.168.68.113:3001/uploads/${req.file.filename}`;
+  res.json({ 
+    success: true, 
+    imageUrl: imageUrl,
+    filename: req.file.filename 
+  });
+});
+
+// DELETE image
+app.delete('/delete-image/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, 'uploads', filename);
+  
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+    res.json({ success: true, message: 'Image deleted successfully' });
+  } else {
+    res.status(404).json({ error: 'Image not found' });
+  }
 });
 
 const PORT = 3001;

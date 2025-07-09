@@ -283,36 +283,46 @@ export const api = {
   },
 
   // Create a new report
-  async createReport(report: { category_id: number, issue_id: number, solution_id: number, notes?: string }): Promise<any> {
+  async createReport(report: { category_id: number, issue_id: number, solution_id: number, notes?: string, images?: (File|null)[] }): Promise<any> {
+    const formData = new FormData();
+    formData.append('category_id', String(report.category_id));
+    formData.append('issue_id', String(report.issue_id));
+    formData.append('solution_id', String(report.solution_id));
+    if (report.notes) formData.append('notes', report.notes);
+    if (report.images) {
+      report.images.forEach((img, idx) => {
+        if (img) formData.append(`pic_name${idx+1}`, img);
+      });
+    }
     const response = await fetch(`${API_BASE_URL}/reports`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(report),
+      body: formData,
     });
-    
     if (!response.ok) {
       throw new Error('Failed to create report');
     }
-    
     return await response.json();
   },
 
   // Update a report
-  async updateReport(id: number, updates: { category_id: number, issue_id: number, solution_id: number, notes?: string }): Promise<any> {
+  async updateReport(id: number, updates: { category_id: number, issue_id: number, solution_id: number, notes?: string, images?: (File|null)[] }): Promise<any> {
+    const formData = new FormData();
+    formData.append('category_id', String(updates.category_id));
+    formData.append('issue_id', String(updates.issue_id));
+    formData.append('solution_id', String(updates.solution_id));
+    if (updates.notes) formData.append('notes', updates.notes);
+    if (updates.images) {
+      updates.images.forEach((img, idx) => {
+        if (img) formData.append(`pic_name${idx+1}`, img);
+      });
+    }
     const response = await fetch(`${API_BASE_URL}/reports/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updates),
+      body: formData,
     });
-    
     if (!response.ok) {
       throw new Error('Failed to update report');
     }
-    
     return await response.json();
   },
 
@@ -327,5 +337,35 @@ export const api = {
     }
     
     return true;
+  },
+
+  // Upload image
+  async uploadImage(file: File): Promise<{ success: boolean; imageUrl: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    const response = await fetch(`${API_BASE_URL}/upload-image`, {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+    
+    return await response.json();
+  },
+
+  // Delete image
+  async deleteImage(filename: string): Promise<{ success: boolean; message: string }> {
+    const response = await fetch(`${API_BASE_URL}/delete-image/${filename}`, {
+      method: 'DELETE',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete image');
+    }
+    
+    return await response.json();
   },
 };

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { api } from '@/utils/api';
-import { Edit, Trash2, Calendar, Clock, Tag, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Edit, Trash2, Calendar, Clock, Tag, AlertTriangle, CheckCircle, Image } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+const API_BASE_URL = 'http://192.168.68.113:3001';
 
 interface Report {
   id: number;
@@ -12,6 +14,9 @@ interface Report {
   solution_id: number;
   datetime: string;
   notes: string;
+  pic_name1?: string | null;
+  pic_name2?: string | null;
+  pic_name3?: string | null;
   category_name: string;
   issue_description: string;
   solution_description: string;
@@ -31,6 +36,7 @@ export const ReportsList: React.FC<ReportsListProps> = ({
   isLoading = false 
 }) => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [fileSizes, setFileSizes] = useState<{[key: string]: string}>({});
   const { toast } = useToast();
 
   const handleDelete = async (id: number) => {
@@ -59,6 +65,40 @@ export const ReportsList: React.FC<ReportsListProps> = ({
     }
   };
 
+  const handleDeletePicture = async (reportId: number, pictureField: string, picturePath: string) => {
+    if (!confirm('Are you sure you want to delete this picture?')) {
+      return;
+    }
+
+    try {
+      // Call API to delete the picture
+      const response = await fetch(`${API_BASE_URL}/reports/${reportId}/picture`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ field: pictureField, path: picturePath })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Picture deleted successfully",
+        });
+        onRefresh();
+      } else {
+        throw new Error('Failed to delete picture');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete picture",
+        variant: "destructive",
+      });
+      console.error('Delete picture error:', error);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString();
   };
@@ -66,6 +106,47 @@ export const ReportsList: React.FC<ReportsListProps> = ({
   const formatTime = (dateString: string) => {
     return new Date(dateString).toLocaleTimeString();
   };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const fetchFileSizes = async (reports: Report[]) => {
+    const allImagePaths = reports.flatMap(report => 
+      [report.pic_name1, report.pic_name2, report.pic_name3].filter(Boolean)
+    );
+    
+    if (allImagePaths.length > 0) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/file-sizes?${allImagePaths.map(path => `files=${encodeURIComponent(path!)}`).join('&')}`);
+        if (response.ok) {
+          const sizes = await response.json();
+          const formattedSizes: {[key: string]: string} = {};
+          Object.entries(sizes).forEach(([path, size]) => {
+            if (size !== null) {
+              formattedSizes[path] = formatFileSize(size as number);
+            } else {
+              formattedSizes[path] = 'Unknown';
+            }
+          });
+          setFileSizes(formattedSizes);
+        }
+      } catch (error) {
+        console.error('Failed to fetch file sizes:', error);
+      }
+    }
+  };
+
+  // Fetch file sizes when reports change
+  useEffect(() => {
+    if (reports.length > 0) {
+      fetchFileSizes(reports);
+    }
+  }, [reports]);
 
   if (isLoading) {
     return (
@@ -161,6 +242,41 @@ export const ReportsList: React.FC<ReportsListProps> = ({
               <div className="pt-2 border-t">
                 <p className="text-gray-700 whitespace-pre-wrap break-words">{report.notes}</p>
               </div>
+            )}
+            {[report.pic_name1, report.pic_name2, report.pic_name3].map((pic, idx) =>
+              pic ? (
+                <div key={idx} className="pt-2 border-t">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Image className="h-4 w-4 text-gray-500" />
+                    <span className="text-sm text-gray-600 font-medium">Picture {idx+1}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={`${API_BASE_URL}${pic}`}
+                      alt={`Report attachment ${idx+1}`}
+                      className="max-w-full h-auto max-h-48 rounded-lg border cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => window.open(`${API_BASE_URL}${pic}`, '_blank')}
+                    />
+                    <div className="flex flex-col gap-1">
+                      {fileSizes[pic] && (
+                        <div className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
+                          {fileSizes[pic]}
+                        </div>
+                      )}
+                      <Button 
+                        type="button" 
+                        onClick={() => handleDeletePicture(report.id, `pic_name${idx+1}`, pic)}
+                        size="sm" 
+                        variant="destructive" 
+                        className="h-8 px-3 text-xs"
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : null
             )}
           </CardContent>
         </Card>
