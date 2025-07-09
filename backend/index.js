@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
+const XLSX = require('xlsx');
 
 const app = express();
 app.use(cors());
@@ -874,6 +875,92 @@ app.delete('/delete-image/:filename', (req, res) => {
   } else {
     res.status(404).json({ error: 'Image not found' });
   }
+});
+
+// Export reports to Excel
+app.post('/export-reports-excel', (req, res) => {
+  const { reportIds } = req.body;
+  
+  if (!reportIds || !Array.isArray(reportIds) || reportIds.length === 0) {
+    return res.status(400).json({ error: 'Report IDs array is required' });
+  }
+  
+  const query = `
+    SELECT r.id, r.datetime, r.notes, r.status, r.priority, r.escalate_name,
+           c.name as category_name, i.description as issue_description, s.desc as solution_description,
+           r.pic_name1, r.pic_name2, r.pic_name3
+    FROM reports r
+    JOIN categories c ON r.category_id = c.id
+    JOIN issue i ON r.issue_id = i.id
+    JOIN solutions s ON r.solution_id = s.id
+    WHERE r.id IN (${reportIds.map(() => '?').join(',')})
+    ORDER BY r.datetime DESC
+  `;
+  
+  db.query(query, reportIds, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'No reports found' });
+    }
+    
+    // Prepare data for Excel
+    const excelData = results.map(report => ({
+      'Report ID': report.id,
+      'Date/Time': new Date(report.datetime).toLocaleString(),
+      'Category': report.category_name,
+      'Issue': report.issue_description,
+      'Solution': report.solution_description,
+      'Status': report.status,
+      'Priority': report.priority,
+      'Escalate To': report.escalate_name || '',
+      'Notes': report.notes || '',
+      'Picture 1': report.pic_name1 ? 'Yes' : 'No',
+      'Picture 2': report.pic_name2 ? 'Yes' : 'No',
+      'Picture 3': report.pic_name3 ? 'Yes' : 'No'
+    }));
+    
+    // Create workbook and worksheet
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    
+    // Set column widths
+    const columnWidths = [
+      { wch: 10 }, // Report ID
+      { wch: 20 }, // Date/Time
+      { wch: 20 }, // Category
+      { wch: 30 }, // Issue
+      { wch: 30 }, // Solution
+      { wch: 12 }, // Status
+      { wch: 12 }, // Priority
+      { wch: 15 }, // Escalate To
+      { wch: 40 }, // Notes
+      { wch: 10 }, // Picture 1
+      { wch: 10 }, // Picture 2
+      { wch: 10 }  // Picture 3
+    ];
+    worksheet['!cols'] = columnWidths;
+    
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Reports');
+    
+    // Generate filename with timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const filename = `reports_export_${timestamp}.xlsx`;
+    
+    // Write to buffer
+    const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+    
+    // Set headers for file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', buffer.length);
+    
+    // Send the file
+    res.send(buffer);
+  });
 });
 
 const PORT = 3001;

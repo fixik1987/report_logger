@@ -8,7 +8,7 @@ import { AddReportForm } from './AddReportForm';
 import { ReportFilters } from './ReportFilters';
 import { Message } from '@/types/Message';
 import { api } from '@/utils/api';
-import { LogOut, Plus, MessageSquare, FileText, RefreshCw } from 'lucide-react';
+import { LogOut, Plus, MessageSquare, FileText, RefreshCw, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Report {
@@ -217,6 +217,51 @@ export const Dashboard = () => {
     });
   };
 
+  const handleExportToExcel = async () => {
+    try {
+      if (reports.length === 0) {
+        toast({
+          title: "No Reports",
+          description: "There are no reports to export",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Get the IDs of currently visible reports
+      const reportIds = reports.map(report => report.id);
+      
+      toast({
+        title: "Exporting...",
+        description: "Preparing Excel file...",
+      });
+
+      const blob = await api.exportReportsToExcel(reportIds);
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `reports_export_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast({
+        title: "Success",
+        description: `Exported ${reports.length} reports to Excel`,
+      });
+    } catch (error) {
+      console.error('Export error:', error);
+      toast({
+        title: "Export Failed",
+        description: "Failed to export reports to Excel",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto p-4 sm:p-6">
@@ -296,13 +341,24 @@ export const Dashboard = () => {
                       <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                     </Button>
                   </div>
-                  <Button 
-                    onClick={handleCreateNew} 
-                    className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
-                  >
-                    <Plus className="h-4 w-4" />
-                    Create New Report
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <Button 
+                      onClick={handleExportToExcel}
+                      disabled={reports.length === 0 || isLoading}
+                      variant="outline"
+                      className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+                    >
+                      <Download className="h-4 w-4" />
+                      Create Excel Report
+                    </Button>
+                    <Button 
+                      onClick={handleCreateNew} 
+                      className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Create New Report
+                    </Button>
+                  </div>
                 </div>
                 
                 <ReportFilters

@@ -374,4 +374,21 @@ export const api = {
     
     return await response.json();
   },
+
+  // Export reports to Excel
+  async exportReportsToExcel(reportIds: number[]): Promise<Blob> {
+    const response = await fetch(`${API_BASE_URL}/export-reports-excel`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ reportIds }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to export reports to Excel');
+    }
+    
+    return await response.blob();
+  },
 };
