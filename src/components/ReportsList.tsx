@@ -12,7 +12,8 @@ interface Report {
   category_id: number;
   issue_id: number;
   solution_id: number;
-  datetime: string;
+  datetime_created: string;
+  datetime_done: string | null;
   notes: string;
   pic_name1?: string | null;
   pic_name2?: string | null;
@@ -191,12 +192,18 @@ export const ReportsList: React.FC<ReportsListProps> = ({
                 <CardDescription className="flex flex-col sm:flex-row sm:items-center gap-2 mt-2">
                   <span className="flex items-center gap-1 text-sm">
                     <Calendar className="h-3 w-3" />
-                    {formatDate(report.datetime)}
+                    {formatDate(report.datetime_created)}
                   </span>
                   <span className="flex items-center gap-1 text-sm">
                     <Clock className="h-3 w-3" />
-                    {formatTime(report.datetime)}
+                    {formatTime(report.datetime_created)}
                   </span>
+                  {report.datetime_done && (
+                    <span className="flex items-center gap-1 text-sm text-green-600">
+                      <CheckCircle className="h-3 w-3" />
+                      Done: {formatDate(report.datetime_done)}
+                    </span>
+                  )}
                 </CardDescription>
               </div>
               <div className="flex gap-2">

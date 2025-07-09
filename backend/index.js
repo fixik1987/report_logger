@@ -536,7 +536,7 @@ app.get('/reports', (req, res) => {
   const { dateFrom, dateTo, categories, issues, solutions } = req.query;
   
   let query = `
-    SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+    SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime_created, r.datetime_done, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
            r.status, r.priority, r.escalate_name,
            c.name as category_name, i.description as issue_description, s.desc as solution_description
     FROM reports r
@@ -550,12 +550,12 @@ app.get('/reports', (req, res) => {
   
   // Date range filter
   if (dateFrom) {
-    conditions.push('r.datetime >= ?');
+    conditions.push('r.datetime_created >= ?');
     params.push(dateFrom + ' 00:00:00');
   }
   
   if (dateTo) {
-    conditions.push('r.datetime <= ?');
+    conditions.push('r.datetime_created <= ?');
     params.push(dateTo + ' 23:59:59');
   }
   
@@ -590,7 +590,7 @@ app.get('/reports', (req, res) => {
     query += ' WHERE ' + conditions.join(' AND ');
   }
   
-  query += ' ORDER BY r.datetime DESC';
+  query += ' ORDER BY r.datetime_created DESC';
   
   db.query(query, params, (err, results) => {
     if (err) {
@@ -620,7 +620,7 @@ app.post('/reports', upload.fields([
   }
   const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
   db.query(
-    'INSERT INTO reports (category_id, issue_id, solution_id, datetime, notes, status, priority, escalate_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    'INSERT INTO reports (category_id, issue_id, solution_id, datetime_created, notes, status, priority, escalate_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     [category_id, issue_id, solution_id, now, notes || null, status, priority, escalate_name],
     (err, result) => {
       if (err) {
@@ -663,7 +663,7 @@ app.post('/reports', upload.fields([
             }
             // Return the created report
             db.query(
-              `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+              `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime_created, r.datetime_done, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
                       r.status, r.priority, r.escalate_name,
                       c.name as category_name, i.description as issue_description, s.desc as solution_description
                FROM reports r
@@ -748,9 +748,15 @@ app.put('/reports/:id', upload.fields([
       const updatedPic2 = picUrls.pic_name2 || current.pic_name2;
       const updatedPic3 = picUrls.pic_name3 || current.pic_name3;
       
+      // Handle datetime_done based on status
+      let datetimeDone = null;
+      if (status === 'done') {
+        datetimeDone = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      }
+      
       db.query(
-        'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ?, status = ?, priority = ?, escalate_name = ?, pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
-        [category_id, issue_id, solution_id, notes || null, status, priority, escalate_name, updatedPic1, updatedPic2, updatedPic3, id],
+        'UPDATE reports SET category_id = ?, issue_id = ?, solution_id = ?, notes = ?, status = ?, priority = ?, escalate_name = ?, datetime_done = ?, pic_name1 = ?, pic_name2 = ?, pic_name3 = ? WHERE id = ?',
+        [category_id, issue_id, solution_id, notes || null, status, priority, escalate_name, datetimeDone, updatedPic1, updatedPic2, updatedPic3, id],
         (err, result) => {
           if (err) {
             return res.status(500).json({ error: 'Database error' });
@@ -760,7 +766,7 @@ app.put('/reports/:id', upload.fields([
           }
           // Return the updated report
           db.query(
-            `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
+            `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime_created, r.datetime_done, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
                     r.status, r.priority, r.escalate_name,
                     c.name as category_name, i.description as issue_description, s.desc as solution_description
              FROM reports r
@@ -886,7 +892,7 @@ app.post('/export-reports-excel', (req, res) => {
   }
   
   const query = `
-    SELECT r.id, r.datetime, r.notes, r.status, r.priority, r.escalate_name,
+    SELECT r.id, r.datetime_created, r.datetime_done, r.notes, r.status, r.priority, r.escalate_name,
            c.name as category_name, i.description as issue_description, s.desc as solution_description,
            r.pic_name1, r.pic_name2, r.pic_name3
     FROM reports r
@@ -894,7 +900,7 @@ app.post('/export-reports-excel', (req, res) => {
     JOIN issue i ON r.issue_id = i.id
     JOIN solutions s ON r.solution_id = s.id
     WHERE r.id IN (${reportIds.map(() => '?').join(',')})
-    ORDER BY r.datetime DESC
+    ORDER BY r.datetime_created DESC
   `;
   
   db.query(query, reportIds, (err, results) => {
@@ -909,7 +915,8 @@ app.post('/export-reports-excel', (req, res) => {
     // Prepare data for Excel
     const excelData = results.map(report => ({
       'Report ID': report.id,
-      'Date/Time': new Date(report.datetime).toLocaleString(),
+      'Date Created': new Date(report.datetime_created).toLocaleString(),
+      'Date Done': report.datetime_done ? new Date(report.datetime_done).toLocaleString() : '',
       'Category': report.category_name,
       'Issue': report.issue_description,
       'Solution': report.solution_description,
@@ -929,7 +936,8 @@ app.post('/export-reports-excel', (req, res) => {
     // Set column widths
     const columnWidths = [
       { wch: 10 }, // Report ID
-      { wch: 20 }, // Date/Time
+      { wch: 20 }, // Date Created
+      { wch: 20 }, // Date Done
       { wch: 20 }, // Category
       { wch: 30 }, // Issue
       { wch: 30 }, // Solution

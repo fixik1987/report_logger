@@ -36,7 +36,8 @@ interface AddReportFormProps {
     category_id: number;
     issue_id: number;
     solution_id: number;
-    datetime: string;
+    datetime_created: string;
+    datetime_done: string | null;
     notes: string;
     category_name: string;
     issue_description: string;
@@ -994,6 +995,23 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             <p className="text-sm text-red-500">{errors.content.message}</p>
           )}
         </div>
+
+        {isEditing && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Date Created</Label>
+              <div className="p-3 bg-gray-50 border rounded text-sm">
+                {message?.datetime_created ? new Date(message.datetime_created).toLocaleString() : 'N/A'}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Date Done</Label>
+              <div className="p-3 bg-gray-50 border rounded text-sm">
+                {message?.datetime_done ? new Date(message.datetime_done).toLocaleString() : 'Not completed'}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
