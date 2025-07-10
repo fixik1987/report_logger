@@ -351,13 +351,13 @@ export const Dashboard = () => {
                       <Download className="h-4 w-4" />
                       Create Excel Report
                     </Button>
-                    <Button 
-                      onClick={handleCreateNew} 
-                      className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
-                    >
-                      <Plus className="h-4 w-4" />
-                      Create New Report
-                    </Button>
+                  <Button 
+                    onClick={handleCreateNew} 
+                    className="flex items-center gap-2 w-full sm:w-auto h-12 sm:h-10"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Create New Report
+                  </Button>
                   </div>
                 </div>
                 

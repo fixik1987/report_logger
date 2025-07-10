@@ -219,13 +219,13 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               loadSolutionsByCategory(selectedCategory.id);
               loadIssuesByCategory(selectedCategory.id);
               
-                          // Set the existing solution and issue after they're loaded
-            setTimeout(() => {
-              setSolutionDropdown(report.solution_description);
-              setValue('solutionDropdown', report.solution_description);
-              setIssueDropdown(report.issue_description);
-              setValue('issueDropdown', report.issue_description);
-            }, 500);
+              // Set the existing solution and issue after they're loaded
+              setTimeout(() => {
+                setSolutionDropdown(report.solution_description);
+                setValue('solutionDropdown', report.solution_description);
+                setIssueDropdown(report.issue_description);
+                setValue('issueDropdown', report.issue_description);
+              }, 500);
             
             // Set existing image if available
             if (report.pic_name1) {

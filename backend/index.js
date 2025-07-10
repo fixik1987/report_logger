@@ -8,7 +8,10 @@ const sharp = require('sharp');
 const XLSX = require('xlsx');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:4173', 'http://192.168.68.113:4173', 'http://192.168.68.113:3001'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Configure multer for image uploads
@@ -109,34 +112,26 @@ app.get('/file-sizes', (req, res) => {
   res.json(fileSizes);
 });
 
-// MySQL connection
-const db = mysql.createConnection({
+// MySQL connection pool
+const db = mysql.createPool({
   host: '192.168.68.113',
   user: 'valik',
   password: 'Range970766',
   database: 'report_logger',
-  connectTimeout: 10000, // 10 seconds timeout
-  acquireTimeout: 10000,
-  timeout: 10000
+  connectionLimit: 10,
+  waitForConnections: true,
+  queueLimit: 0
 });
 
-db.connect(err => {
+// Test the connection
+db.getConnection((err, connection) => {
   if (err) {
     console.error('MySQL connection error:', err);
     console.log('Server will continue running but database operations will fail');
-    // Don't exit the process, let it continue running
     return;
   }
   console.log('Connected to MySQL');
-});
-
-// Handle database disconnection
-db.on('error', (err) => {
-  console.error('Database error:', err);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-    console.log('Database connection was lost. Attempting to reconnect...');
-    // You could implement reconnection logic here
-  }
+  connection.release();
 });
 
 // Endpoint to read users table
@@ -661,24 +656,24 @@ app.post('/reports', upload.fields([
             if (err2) {
               return res.status(500).json({ error: 'Failed to update report with images' });
             }
-            // Return the created report
-            db.query(
+      // Return the created report
+      db.query(
               `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime_created, r.datetime_done, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
                       r.status, r.priority, r.escalate_name,
-                      c.name as category_name, i.description as issue_description, s.desc as solution_description
-               FROM reports r
-               JOIN categories c ON r.category_id = c.id
-               JOIN issue i ON r.issue_id = i.id
-               JOIN solutions s ON r.solution_id = s.id
-               WHERE r.id = ?`,
+                c.name as category_name, i.description as issue_description, s.desc as solution_description
+         FROM reports r
+         JOIN categories c ON r.category_id = c.id
+         JOIN issue i ON r.issue_id = i.id
+         JOIN solutions s ON r.solution_id = s.id
+         WHERE r.id = ?`,
               [reportId],
               (err3, results) => {
                 if (err3 || results.length === 0) {
-                  return res.status(500).json({ error: 'Failed to retrieve created report' });
-                }
-                res.status(201).json(results[0]);
-              }
-            );
+            return res.status(500).json({ error: 'Failed to retrieve created report' });
+          }
+          res.status(201).json(results[0]);
+        }
+      );
           }
         );
       };
@@ -768,22 +763,22 @@ app.put('/reports/:id', upload.fields([
           db.query(
             `SELECT r.id, r.category_id, r.issue_id, r.solution_id, r.datetime_created, r.datetime_done, r.notes, r.pic_name1, r.pic_name2, r.pic_name3,
                     r.status, r.priority, r.escalate_name,
-                    c.name as category_name, i.description as issue_description, s.desc as solution_description
-             FROM reports r
-             JOIN categories c ON r.category_id = c.id
-             JOIN issue i ON r.issue_id = i.id
-             JOIN solutions s ON r.solution_id = s.id
-             WHERE r.id = ?`,
-            [id],
+                c.name as category_name, i.description as issue_description, s.desc as solution_description
+         FROM reports r
+         JOIN categories c ON r.category_id = c.id
+         JOIN issue i ON r.issue_id = i.id
+         JOIN solutions s ON r.solution_id = s.id
+         WHERE r.id = ?`,
+        [id],
             (err2, results) => {
               if (err2 || results.length === 0) {
-                return res.status(500).json({ error: 'Failed to retrieve updated report' });
-              }
-              res.json(results[0]);
-            }
-          );
+            return res.status(500).json({ error: 'Failed to retrieve updated report' });
+          }
+          res.json(results[0]);
         }
       );
+    }
+  );
     });
   };
   
@@ -862,7 +857,7 @@ app.post('/upload-image', upload.single('image'), (req, res) => {
     return res.status(400).json({ error: 'No image file uploaded' });
   }
   
-  const imageUrl = `http://192.168.68.113:3001/uploads/${req.file.filename}`;
+  const imageUrl = `http://192.168.68.113:3000/uploads/${req.file.filename}`;
   res.json({ 
     success: true, 
     imageUrl: imageUrl,
@@ -971,7 +966,9 @@ app.post('/export-reports-excel', (req, res) => {
   });
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Start server
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`${new Date().toISOString().slice(0, 19).replace('T', ' ')}: Server running on ${HOST}:${PORT}`);
 });
