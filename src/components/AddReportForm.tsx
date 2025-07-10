@@ -99,7 +99,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
 
   // Status and Priority states
   const [status, setStatus] = useState('in_progress');
-  const [priority, setPriority] = useState('pendant');
+  const [priority, setPriority] = useState('pending');
   const [escalate_name, setEscalate_name] = useState('');
 
   const {
@@ -121,7 +121,7 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
       issueDropdown: '',
       content: message?.content || '',
       status: 'in_progress',
-      priority: 'pendant',
+      priority: 'pending',
       escalate_name: '',
     },
   });
@@ -239,8 +239,8 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
             // Set status and priority fields
             setStatus(report.status || 'in_progress');
             setValue('status', report.status || 'in_progress');
-            setPriority(report.priority || 'pendant');
-            setValue('priority', report.priority || 'pendant');
+            setPriority(report.priority || 'pending');
+            setValue('priority', report.priority || 'pending');
             setEscalate_name(report.escalate_name || '');
             setValue('escalate_name', report.escalate_name || '');
             }
@@ -1047,7 +1047,8 @@ export const AddReportForm: React.FC<AddReportFormProps> = ({ message, onSuccess
               }}
               className="w-full border rounded px-3 py-2 h-12 text-base hover:border-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
             >
-              <option value="pendant">Pendant</option>
+              <option value="pending">Pending</option>
+              <option value="medium">Medium</option>
               <option value="high">High</option>
               <option value="low">Low</option>
             </select>
